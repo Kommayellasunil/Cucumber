@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="target/classes" path="src/main/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="optional" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="test" value="true"/>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources">
+		<attributes>
+			<attribute name="test" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="optional" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/async-http-client-2.12.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/async-http-client-netty-utils-2.12.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/auto-common-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/auto-service-1.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/auto-service-annotations-1.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/byte-buddy-1.12.9.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/checker-qual-3.12.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/commons-exec-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/error_prone_annotations-2.11.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/failsafe-3.2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/failureaccess-1.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/guava-31.1-jre.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/j2objc-annotations-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/jakarta.activation-1.2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/jcommander-1.82.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/jsr305-3.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/jtoml-2.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/netty-buffer-4.1.76.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/netty-codec-4.1.76.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/netty-codec-http-4.1.76.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/netty-codec-socks-4.1.60.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/netty-common-4.1.76.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/netty-handler-4.1.76.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/netty-handler-proxy-4.1.60.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/netty-reactive-streams-2.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/netty-resolver-4.1.76.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/netty-transport-4.1.76.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/netty-transport-classes-epoll-4.1.76.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/netty-transport-classes-kqueue-4.1.76.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/netty-transport-native-epoll-4.1.60.Final-linux-x86_64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/netty-transport-native-epoll-4.1.76.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/netty-transport-native-kqueue-4.1.60.Final-osx-x86_64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/netty-transport-native-kqueue-4.1.76.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/netty-transport-native-unix-common-4.1.76.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/opentelemetry-api-1.13.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/opentelemetry-context-1.13.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/opentelemetry-exporter-logging-1.13.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/opentelemetry-sdk-1.13.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/opentelemetry-sdk-common-1.13.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/opentelemetry-sdk-extension-autoconfigure-1.13.0-alpha.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/opentelemetry-sdk-extension-autoconfigure-spi-1.13.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/opentelemetry-sdk-logs-1.13.0-alpha.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/opentelemetry-sdk-metrics-1.13.0-alpha.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/opentelemetry-sdk-trace-1.13.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/opentelemetry-semconv-1.13.0-alpha.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/reactive-streams-1.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/selenium-api-4.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/selenium-chrome-driver-4.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/selenium-chromium-driver-4.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/selenium-devtools-v85-4.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/selenium-devtools-v99-4.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/selenium-devtools-v100-4.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/selenium-devtools-v101-4.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/selenium-edge-driver-4.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/selenium-firefox-driver-4.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/selenium-http-4.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/selenium-ie-driver-4.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/selenium-java-4.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/selenium-json-4.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/selenium-opera-driver-4.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/selenium-remote-driver-4.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/selenium-safari-driver-4.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/selenium-support-4.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NanoHealth/OneDrive/Webdriver jar files/slf4j-api-1.7.30.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>
