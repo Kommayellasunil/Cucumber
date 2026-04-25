@@ -1,8 +1,11 @@
 package RecommendationManager;
 
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.time.Duration;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -46,26 +49,41 @@ public class RecommendationManager {
 	@Then("enters the email {string} password {string}")
 	public void enters_the_email_password(String email, String password) throws Exception {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-		wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("user_login")))).sendKeys(email);
-		Thread.sleep(1000);
-		driver.findElement(By.id("user_password")).sendKeys(password);
-		Thread.sleep(10000);
+		wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("user_login")))).sendKeys("sunilk@nh.com");
+//		Thread.sleep(1000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("user_password"))).sendKeys("Chakra@1");
+		Thread.sleep(5000);
+
 	}
 
 	@Then("click on signin button to login")
 	public void click_on_signin_button_to_login() throws Exception {
-		driver.findElement(By.name("commit")).click();
-		Thread.sleep(5000);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath("(//div[@class='sign-btn full-btn loginBtn btn_disable'])[1]")))
+				.click();
+		Thread.sleep(3000);
 	}
 
 	@Then("selects the cdp name and role name")
 	public void selects_the_cdp_name_and_role_name() throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		// selecting the NanoHealth CDP
-		driver.findElement(By.xpath("(//a[text()='nanohealthplan'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//a[text()='nanohealthplan'])[1]")))
+				.click();
 		Thread.sleep(3000);
 		// selecting Role clicking on RecommendationManager Role
-		driver.findElement(By.xpath("(//div[normalize-space(text())='RecommendationManager'])[1]")).click();
-		Thread.sleep(5000);
+		wait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath("(//div[normalize-space(text())='RecommendationManager'])[1]")))
+				.click();
+		Thread.sleep(3000);
+		Robot robot = new Robot();
+		robot.keyPress(KeyEvent.VK_CONTROL);
+		robot.keyPress(KeyEvent.VK_SUBTRACT);
+		Thread.sleep(1000);
+		robot.keyRelease(KeyEvent.VK_SUBTRACT);
+		robot.keyRelease(KeyEvent.VK_CONTROL);
+		Thread.sleep(1000);
 	}
 
 	@When("role is selected it will opens the recommendation manager dashboard")
@@ -80,6 +98,7 @@ public class RecommendationManager {
 
 	@When("user creates a new recommendation")
 	public void user_creates_a_new_recommendation() throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		Actions create = new Actions(driver);
 		create.moveToElement(driver.findElement(By.xpath("(//span[@data-tooltip='Create Recommendation'])[1]/img[1]")))
 				.build().perform();
@@ -87,9 +106,9 @@ public class RecommendationManager {
 		create.moveToElement(driver.findElement(By.xpath("(//span[@data-tooltip='Create Recommendation'])[1]/img[1]")))
 				.click().build().perform();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//button[text()='Submit'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Submit'])[1]"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//button[text()='Update'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Update'])[1]"))).click();
 		Thread.sleep(1000);
 		create.moveToElement(driver.findElement(By.xpath("(//span[@title='Add source node'])[1]/div[1]"))).build()
 				.perform();
@@ -97,22 +116,23 @@ public class RecommendationManager {
 		create.moveToElement(driver.findElement(By.xpath("(//span[@title='Add source node'])[1]/div[1]"))).click()
 				.build().perform();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//span[text()='Form'])[1]")).click();
-		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//input[@placeholder='Search'])[1]")).sendKeys("Cucum");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Form'])[1]"))).click();
 		Thread.sleep(1000);
-//		driver.findElement(By.xpath("(//div[text()='Cucum formbuilder'])[1]")).click();
-//		Thread.sleep(1000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@placeholder='Search'])[1]")))
+				.sendKeys("Cucum");
+		Thread.sleep(1000);
 	}
 
 	@When("user adds a source form Cucum formbuilder")
 	public void user_adds_a_source_form_cucum_formbuilder() throws Exception {
 		Actions create = new Actions(driver);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		WebElement formname = driver.findElement(By.xpath(
-				"//div[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),'cucum formbuilder')]"));
+				"//div[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),'cucum')]"));
 		formname.click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//span[@title='Delete'])[1]/img[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[@title='Delete'])[1]/span[1]")))
+				.click();
 		Thread.sleep(1000);
 		create.moveToElement(driver.findElement(By.xpath("(//span[@title='Add source node'])[1]/div[1]"))).build()
 				.perform();
@@ -120,14 +140,14 @@ public class RecommendationManager {
 		create.moveToElement(driver.findElement(By.xpath("(//span[@title='Add source node'])[1]/div[1]"))).click()
 				.build().perform();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//span[text()='Form'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Form'])[1]"))).click();
+		Thread.sleep(1000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@placeholder='Search'])[1]")))
+				.sendKeys("Cucum");
+		Thread.sleep(1000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[text()='Cucum formbuilder'])[1]")))
+				.click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//input[@placeholder='Search'])[1]")).sendKeys("Cucum");
-		Thread.sleep(1000);
-		WebElement formname1 = driver.findElement(By.xpath(
-				"//div[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),'cucum formbuilder')]"));
-		formname1.click();
-		Thread.sleep(1000);
 	}
 
 	@When("user deletes the added source node")
@@ -143,16 +163,19 @@ public class RecommendationManager {
 	@When("user adds target node Doctor Consultation")
 	public void user_adds_target_node_doctor_consultation() throws Exception {
 		Actions create = new Actions(driver);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		create.moveToElement(driver.findElement(By.xpath("(//span[@title='Add target node'])[1]/div[1]"))).build()
 				.perform();
 		Thread.sleep(1000);
 		create.moveToElement(driver.findElement(By.xpath("(//span[@title='Add target node'])[1]/div[1]"))).click()
 				.build().perform();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//span[text()='Doctor Consultation'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Doctor Consultation'])[1]")))
+				.click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//div[text()='Doctor Consultation'])[2]")).click();
-		Thread.sleep(1000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[text()='Doctor Consultation'])[2]")))
+				.click();
+		Thread.sleep(2000);
 		create.moveToElement(driver.findElement(By.xpath("(//div[@data-id='engine'])[1]/div[1]"))).doubleClick().build()
 				.perform();
 		Thread.sleep(2000);
@@ -161,14 +184,25 @@ public class RecommendationManager {
 	@When("user configures logic with height condition")
 	public void user_configures_logic_with_height_condition() throws Exception {
 		Actions create = new Actions(driver);
-		driver.findElement(By.xpath("(//input[@name='logic_code'])[1]")).sendKeys("8790");
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@name='logic_code'])[1]")))
+				.sendKeys("8790");
 		Thread.sleep(1000);
-		WebElement inputfield = driver
-				.findElement(By.xpath("(//label[@id='question-select-label'])[1]/following-sibling::div[1]/input[1]"));
-		inputfield.sendKeys("Height");
+
+//		WebElement inputfield = driver
+//				.findElement(By.xpath("(//label[@id='question-select-label'])[1]/following-sibling::div[1]/input[1]"));
+//		inputfield.sendKeys("Height");
 //		Thread.sleep(2000);
 //		driver.findElement(By.xpath("(//li[text()='Height'])[1]")).click();
-		Thread.sleep(10000);
+//		Thread.sleep(10000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("(//label[text()='Search & Select'])[1]/following-sibling::div[1]/input[1]"))).click();
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("(//label[text()='Search & Select'])[1]/following-sibling::div[1]/input[1]")))
+				.sendKeys("Height" + Keys.ENTER);
+		Thread.sleep(3000);
+
 		Select dropdown = new Select(driver.findElement(By.xpath("(//select[@id='questnDropdown'])[1]")));
 		dropdown.selectByVisibleText("Height");
 		Thread.sleep(1000);
@@ -178,55 +212,39 @@ public class RecommendationManager {
 		Select dropdown11 = new Select(driver.findElement(By.xpath("(//select[@id='operatorDropdown'])[1]")));
 		dropdown11.selectByVisibleText("Greater than or equal to");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@id='textInput'])[1]")).sendKeys("170");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@id='textInput'])[1]")))
+				.sendKeys("170");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//button[text()='Add'])[1]")).click();
-		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//button[text()='Submit'])[2]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Add'])[1]"))).click();
+		Thread.sleep(1000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Submit'])[2]"))).click();
 		Thread.sleep(2000);
 		create.moveToElement(driver.findElement(By.xpath("(//div[@data-id='engine'])[1]/div[1]"))).doubleClick().build()
 				.perform();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//img[@alt='edit'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@alt='edit'])[1]"))).click();
+		Thread.sleep(1000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@name='logic_code'])[1]"))).clear();
+		Thread.sleep(1000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@name='logic_code'])[1]")))
+				.sendKeys("8791");
+		Thread.sleep(1000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@alt='checkIcon'])[1]"))).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//input[@name='logic_code'])[1]")).clear();
-		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//input[@name='logic_code'])[1]")).sendKeys("8791");
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//img[@alt='checkIcon'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Submit'])[2]"))).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//button[text()='Submit'])[2]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Submit'])[1]"))).click();
+		Thread.sleep(1000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Back'])[1]"))).click();
+		Thread.sleep(1000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@id='head'])[1]")))
+				.sendKeys("Cucum recommendation");
+		Thread.sleep(1000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Submit'])[1]"))).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//button[text()='Submit'])[1]")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//button[text()='Back'])[1]")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@id='head'])[1]")).sendKeys("Cucum recommendation");
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//button[text()='Submit'])[1]")).click();
-		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//input[@id='frst_nm'])[1]")).sendKeys("Cucum");
-		Thread.sleep(3000);
-		// clicking on the recommendation name
-		driver.findElement(By.xpath("(//div[text()='Cucum recommendation'])[1]")).click();
-		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//button[text()='Edit'])[1]")).click();
-		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//span[@title='Add target node'])[1]/div[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@id='frst_nm'])[1]")))
+				.sendKeys("Cucum");
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//span[text()='Doctor Consultation'])[1]")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//div[text()='Doctor Consultation'])[2]")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//div[text()='True'])[2]")).click();
-		Thread.sleep(2000);
-		// submit
-		driver.findElement(By.xpath("(//button[text()='Submit'])[1]")).click();
-		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//input[@id='frst_nm'])[1]")).clear();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@id='frst_nm'])[1]")).sendKeys("Cucum");
-		Thread.sleep(3000);
 	}
 
 	@When("user updates logic code")
@@ -241,51 +259,63 @@ public class RecommendationManager {
 
 	@When("user edits recommendation to add true condition target")
 	public void user_edits_recommendation_to_add_true_condition_target() throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		// clicking on the recommendation name
-		driver.findElement(By.xpath("(//div[text()='Cucum recommendation'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[text()='Cucum recommendation'])[1]")))
+				.click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//button[text()='Edit'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Edit'])[1]"))).click();
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//span[@title='Add target node'])[1]/div[1]")).click();
+		wait.until(
+				ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[@title='Add target node'])[1]/div[1]")))
+				.click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//span[text()='Diagnostic Lab'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Diagnostic Lab'])[1]")))
+				.click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//div[text()='FBS'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[text()='FBS'])[1]"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//div[text()='True'])[2]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[text()='True'])[2]"))).click();
 		Thread.sleep(2000);
 		// submit
-		driver.findElement(By.xpath("(//button[text()='Submit'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Submit'])[1]"))).click();
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//input[@id='frst_nm'])[1]")).clear();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@id='frst_nm'])[1]"))).clear();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@id='frst_nm'])[1]")).sendKeys("Cucum");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@id='frst_nm'])[1]")))
+				.sendKeys("Cucum");
 		Thread.sleep(3000);
 
 	}
 
 	@Then("user tests recommendation with height value")
 	public void user_tests_recommendation_with_height_value() throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		// clicking on the recommendation name
-		driver.findElement(By.xpath("(//div[text()='Cucum recommendation'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[text()='Cucum recommendation'])[1]")))
+				.click();
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//button[text()='Test'])[1]")).click();
-		Thread.sleep(5000);
-		driver.findElement(By.xpath("(//input[@id='age'])[1]")).sendKeys("312");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Test'])[1]"))).click();
+		Thread.sleep(3000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@id='age'])[1]"))).sendKeys("312");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@name='HTFT'])[1]")).sendKeys("170");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@name='HTFT'])[1]")))
+				.sendKeys("170");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//button[text()='Send request'])[1]")).click();
-		Thread.sleep(5000);
-		driver.findElement(By.xpath("(//input[@name='HTFT'])[1]")).clear();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Send request'])[1]")))
+				.click();
+		Thread.sleep(3000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@name='HTFT'])[1]"))).clear();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@name='HTFT'])[1]")).sendKeys("160");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@name='HTFT'])[1]")))
+				.sendKeys("160");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//button[text()='Send request'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Send request'])[1]")))
+				.click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//button[text()='Close'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Close'])[1]"))).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//button[text()='Back'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Back'])[1]"))).click();
 		Thread.sleep(2000);
 		driver.close();
 	}

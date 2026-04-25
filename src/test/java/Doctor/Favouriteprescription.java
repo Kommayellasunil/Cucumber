@@ -45,48 +45,53 @@ public class Favouriteprescription {
 
 	@Then("enter email11 {string} password11 {string}")
 	public void enter_email11_password11(String email11, String password11) throws Exception {
-		driver.findElement(By.id("user_login")).sendKeys(email11);
-		driver.findElement(By.id("user_password")).sendKeys(password11);
-		Thread.sleep(15000);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("user_login"))).sendKeys(email11);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("user_password"))).sendKeys(password11);
+		Thread.sleep(5000);
 	}
 
 	@And("click on the signin button to login into doctor role")
 	public void click_on_the_signin_button_to_login_into_doctor_role() throws Exception {
-		driver.findElement(By.xpath("(//div[@class='sign-btn full-btn loginBtn btn_disable'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//div[@class='sign-btn full-btn loginBtn btn_disable'])[1]"))).click();
 		Thread.sleep(3000);
 	}
 
 	@When("signin button is clicked then doctor dashboard opens")
 	public void signin_button_is_clicked_then_doctor_dashboard_opens() throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		// selecting the NanoHealth CDP
-		driver.findElement(By.xpath("(//a[text()='nanohealthplan'])[1]")).click();
-		Thread.sleep(3000);
-		// selecting Role
-		driver.findElement(By.xpath("(//div[normalize-space(text())='Doctor'])[1]")).click();
-		Thread.sleep(2000);
-//		System.out.println("Doctor Dashboard is opened successfully.");
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[text()='nanohealthplan'])[1]"))).click();
+		// selecting cdpadmin Role
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[normalize-space(text())='Doctor'])[1]")))
+				.click();
 		Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_CONTROL);
 		robot.keyPress(KeyEvent.VK_SUBTRACT);
-		Thread.sleep(1000);
+		Thread.sleep(1000); // kept for Robot physical actions
 		robot.keyRelease(KeyEvent.VK_SUBTRACT);
 		robot.keyRelease(KeyEvent.VK_CONTROL);
-		Thread.sleep(1000);
+		Thread.sleep(1000); // kept for Robot physical actions
 	}
 
 	@Then("click on the myaccount and click on configurations button")
 	public void click_on_the_myaccount_and_click_on_configurations_button() throws Exception {
-		driver.findElement(By.xpath("(//div[@class='profile-img'])[1]/img[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@class='profile-img'])[1]/img[1]")))
+				.click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//i[@class='fa fa-cog'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//i[@class='fa fa-cog'])[1]"))).click();
 		Thread.sleep(2000);
 	}
 
 	@And("from configurations click on the prescription")
 	public void from_configurations_click_on_the_prescription() throws Exception {
-		driver.findElement(By.xpath("(//a[text()='Configurations'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[text()='Configurations'])[1]"))).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//a[@id='doctorFavPrescBtn'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[@id='doctorFavPrescBtn'])[1]"))).click();
 		Thread.sleep(2000);
 	}
 
@@ -118,55 +123,59 @@ public class Favouriteprescription {
 	@And("create the favourite prescription and save it")
 	public void create_the_favourite_prescription_and_save_it() throws Exception {
 		// clicking on the plus button to addnew
-		driver.findElement(By.xpath("(//a[@id='fav_precription_creation'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[@id='fav_precription_creation'])[1]")))
+				.click();
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//input[@id='Favourite_Prescription_Name'])[1]")).sendKeys("Cucum Fav Ps");
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='Favourite_Prescription_Name'])[1]")))
+				.sendKeys("Cucum Fav Ps");
 		Thread.sleep(2000);
-		driver.findElement(
-				By.xpath("(//div[normalize-space(text())='Consultation Type'])[1]/following-sibling::input[1]"))
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("(//div[normalize-space(text())='Consultation Type'])[1]/following-sibling::input[1]")))
 				.sendKeys("Testing type");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(
-				By.xpath("(//div[normalize-space(text())='Accompanied By'])[1]/following-sibling::div/textarea[1]"))
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("(//div[normalize-space(text())='Accompanied By'])[1]/following-sibling::div/textarea[1]")))
 				.sendKeys("Accompained by family" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(
-				By.xpath("(//div[normalize-space(text())='Accompanied By'])[1]/following-sibling::div/textarea[1]"))
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("(//div[normalize-space(text())='Accompanied By'])[1]/following-sibling::div/textarea[1]")))
 				.sendKeys("Testing" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// clicking on the reset button
-		driver.findElement(By.xpath("(//a[text()='Reset'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[text()='Reset'])[1]"))).click();
 		Thread.sleep(2000);
 
-		driver.findElement(By.xpath("(//input[@id='Favourite_Prescription_Name'])[1]")).sendKeys("Cucum Fav Ps");
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='Favourite_Prescription_Name'])[1]")))
+				.sendKeys("Cucum Fav Ps");
 		Thread.sleep(1000);
-		driver.findElement(
-				By.xpath("(//div[normalize-space(text())='Consultation Type'])[1]/following-sibling::input[1]"))
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("(//div[normalize-space(text())='Consultation Type'])[1]/following-sibling::input[1]")))
 				.sendKeys("Testing type");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(
-				By.xpath("(//div[normalize-space(text())='Accompanied By'])[1]/following-sibling::div/textarea[1]"))
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("(//div[normalize-space(text())='Accompanied By'])[1]/following-sibling::div/textarea[1]")))
 				.sendKeys("Accompained by family" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(
-				By.xpath("(//div[normalize-space(text())='Accompanied By'])[1]/following-sibling::div/textarea[1]"))
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("(//div[normalize-space(text())='Accompanied By'])[1]/following-sibling::div/textarea[1]")))
 				.sendKeys("Fav prescription");
 		Thread.sleep(1000);
 
-		driver.findElement(
-				By.xpath("(//div[normalize-space(text())='Patient History'])[1]/following-sibling::div[1]/textarea[1]"))
+		wait.until(ExpectedConditions.elementToBeClickable(By
+				.xpath("(//div[normalize-space(text())='Patient History'])[1]/following-sibling::div[1]/textarea[1]")))
 				.sendKeys("Test patient history" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(
-				By.xpath("(//div[normalize-space(text())='Patient History'])[1]/following-sibling::div[1]/textarea[1]"))
+		wait.until(ExpectedConditions.elementToBeClickable(By
+				.xpath("(//div[normalize-space(text())='Patient History'])[1]/following-sibling::div[1]/textarea[1]")))
 				.sendKeys("testing history" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(
-				By.xpath("(//div[normalize-space(text())='Patient History'])[1]/following-sibling::div[1]/textarea[1]"))
+		wait.until(ExpectedConditions.elementToBeClickable(By
+				.xpath("(//div[normalize-space(text())='Patient History'])[1]/following-sibling::div[1]/textarea[1]")))
 				.sendKeys("test history");
 		Thread.sleep(1000);
 
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		// WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#doctor_visit_comorbidity"))).click();
 		Thread.sleep(2000);
 		Robot robot = new Robot();
@@ -183,59 +192,68 @@ public class Favouriteprescription {
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@class='input_note_cmrb'])[1]/i[1]")))
 				.click();
 		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("input#doctor_visit_comorbidity")).sendKeys("Hypertension");
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#doctor_visit_comorbidity")))
+				.sendKeys("Hypertension");
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//a[contains(text(),'HYPERTENSION')])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[contains(text(),'HYPERTENSION')])[1]")))
+				.click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//input[@name='doctor_visit[comorbidity][][dur]'])[2]")).sendKeys("2");
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//input[@name='doctor_visit[comorbidity][][dur]'])[2]")))
+				.sendKeys("2");
 		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("input#doctor_visit_comorbidity")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#doctor_visit_comorbidity"))).click();
 		Thread.sleep(1000);
 		// Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_ENTER);
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//div[@class='input_close_cmrb'])[3]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@class='input_close_cmrb'])[3]"))).click();
 		Thread.sleep(2000);
 		// Cast the driver to JavascriptExecutor
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0, 200)");
 		Thread.sleep(1000);
 
-		driver.findElement(By.cssSelector("input#doctor_visit_symptoms")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#doctor_visit_symptoms"))).click();
 		Thread.sleep(1000);
 		// Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_ENTER);
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@name='doctor_visit[symptoms][][dur]'])[1]")).sendKeys("2" + Keys.TAB);
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//input[@name='doctor_visit[symptoms][][dur]'])[1]")))
+				.sendKeys("2" + Keys.TAB);
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//li[text()='Weeks'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//li[text()='Weeks'])[1]"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("input#doctor_visit_symptoms")).sendKeys("Symptom");
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#doctor_visit_symptoms")))
+				.sendKeys("Symptom");
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//a[contains(text(),'SYMPTOM')])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[contains(text(),'SYMPTOM')])[1]"))).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//input[@name='doctor_visit[symptoms][][dur]'])[2]")).sendKeys("1");
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//input[@name='doctor_visit[symptoms][][dur]'])[2]"))).sendKeys("1");
 		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("input#doctor_visit_symptoms")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#doctor_visit_symptoms"))).click();
 		Thread.sleep(1000);
 		// Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_ENTER);
 		Thread.sleep(1000);
 		// remove one
-		driver.findElement(By.xpath("(//div[@id='input_close'])[3]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@id='input_close'])[3]"))).click();
 		Thread.sleep(1000);
 
 		// WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-		driver.findElement(By.cssSelector("input#doctor_visit_diagnosis")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#doctor_visit_diagnosis"))).click();
 		Thread.sleep(1000);
 		// Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_ENTER);
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@name='doctor_visit[diagnosis][][dur]'])[1]")).click();
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//input[@name='doctor_visit[diagnosis][][dur]'])[1]"))).click();
 		Thread.sleep(1000);
 		robot.keyPress(KeyEvent.VK_TAB);
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//li[text()='Since Birth'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//li[text()='Since Birth'])[1]"))).click();
 		Thread.sleep(1000);
 
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@class='input_note_diag'])[1]/img[1]")))
@@ -257,29 +275,32 @@ public class Favouriteprescription {
 		js.executeScript("window.scrollBy(0, 400)");
 		Thread.sleep(1000);
 		// temp
-		driver.findElement(By.xpath("//div[normalize-space(text())='Temp (F)']/following-sibling::input"))
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("//div[normalize-space(text())='Temp (F)']/following-sibling::input")))
 				.sendKeys("101");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("//div[normalize-space(text())='Pulse (bpm)']/following-sibling::input"))
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//div[normalize-space(text())='Pulse (bpm)']/following-sibling::input"))).sendKeys("98");
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//div[normalize-space(text())='Respiratory Rate (/min)']/following-sibling::input")))
 				.sendKeys("98");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(
-				By.xpath("//div[normalize-space(text())='Respiratory Rate (/min)']/following-sibling::input"))
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("//div[normalize-space(text())='SpO2(%)']/following-sibling::input")))
 				.sendKeys("98");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("//div[normalize-space(text())='SpO2(%)']/following-sibling::input"))
-				.sendKeys("98");
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#bp-s"))).sendKeys("120");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.cssSelector("input#bp-s")).sendKeys("120");
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.cssSelector("input#bp-d")).sendKeys("98");
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#bp-d"))).sendKeys("98");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// height
-		driver.findElement(By.xpath("//div[normalize-space(text())='Height (Cms)']/following-sibling::input[1]"))
-				.sendKeys("165");
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//div[normalize-space(text())='Height (Cms)']/following-sibling::input[1]"))).sendKeys("165");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// weight
-		driver.findElement(By.xpath("//div[normalize-space(text())='Weight (Kgs)']/following-sibling::input[1]"))
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//div[normalize-space(text())='Weight (Kgs)']/following-sibling::input[1]")))
 				.sendKeys("68" + Keys.TAB);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		Thread.sleep(1000);
@@ -287,7 +308,8 @@ public class Favouriteprescription {
 		jse11111.executeScript("window.scrollBy(0, 300)");
 		Thread.sleep(1000);
 		// WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//label[text()='Medicine'])[1]/preceding-sibling::input[1]")).click();
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//label[text()='Medicine'])[1]/preceding-sibling::input[1]"))).click();
 		Thread.sleep(3000);
 		// Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_ENTER);
@@ -319,9 +341,10 @@ public class Favouriteprescription {
 		// JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0, 200)");
 		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("input#doctor_visit_nxt_vst_dur")).sendKeys("10" + Keys.TAB);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#doctor_visit_nxt_vst_dur")))
+				.sendKeys("10" + Keys.TAB);
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//li[text()='Weeks'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//li[text()='Weeks'])[1]"))).click();
 		Thread.sleep(2000);
 		WebElement teleconslt = driver.findElement(By.xpath("(//label[text()='Tele-consultation'])[1]"));
 		teleconslt.click();
@@ -329,7 +352,8 @@ public class Favouriteprescription {
 		WebElement video = driver.findElement(By.xpath("(//label[text()='Video'])[1]"));
 		video.click();
 		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("input#recommended_lab_input_helper")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#recommended_lab_input_helper")))
+				.click();
 		Thread.sleep(3000);
 		// Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_ENTER);
@@ -351,37 +375,44 @@ public class Favouriteprescription {
 		Thread.sleep(2000);
 		robot.keyPress(KeyEvent.VK_ENTER);
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//i[@class='material-icons close lab_chip_close'])[3]")).click();
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//i[@class='material-icons close lab_chip_close'])[3]"))).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//a[text()='Request'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[text()='Request'])[1]"))).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//div[@id='requestLabs'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@id='requestLabs'])[1]"))).click();
 		Thread.sleep(2000);
 		// JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0, 200)");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@id='packages_input'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='packages_input'])[1]"))).click();
 		Thread.sleep(3000);
 		// Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_ENTER);
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@id='packages_input'])[1]")).sendKeys("Program");
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='packages_input'])[1]")))
+				.sendKeys("Program");
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//a[contains(text(),'program')])[2]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[contains(text(),'program')])[2]"))).click();
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//input[@id='packages_input'])[1]")).sendKeys("Automation testprocedure");
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='packages_input'])[1]")))
+				.sendKeys("Automation testprocedure");
 		Thread.sleep(3000);
 		robot.keyPress(KeyEvent.VK_ENTER);
 		Thread.sleep(1000);
 		// removing second one
-		driver.findElement(By.xpath("(//i[@class='material-icons close package_chip_close'])[2]")).click();
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//i[@class='material-icons close package_chip_close'])[2]"))).click();
 		Thread.sleep(2000);
 		// comments
-		driver.findElement(By.xpath("(//textarea[@id='textareaField'])[1]")).sendKeys("Testing comments" + Keys.ENTER);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='textareaField'])[1]")))
+				.sendKeys("Testing comments" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//textarea[@id='textareaField'])[1]")).sendKeys("test comments" + Keys.ENTER);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='textareaField'])[1]")))
+				.sendKeys("test comments" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//textarea[@id='textareaField'])[1]")).sendKeys("tdy test ps comments");
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='textareaField'])[1]")))
+				.sendKeys("tdy test ps comments");
 		// JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0, 200)");
 		Thread.sleep(1000);
@@ -494,7 +525,7 @@ public class Favouriteprescription {
 		// Optional pause
 		Thread.sleep(2000);
 		// clicking on the save and close button
-		driver.findElement(By.xpath("(//div[@title='Save and close'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@title='Save and close'])[1]"))).click();
 		Thread.sleep(2000);
 		// save
 		WebDriverWait save = new WebDriverWait(driver, Duration.ofSeconds(30));
@@ -506,14 +537,16 @@ public class Favouriteprescription {
 	@Then("edit the favourite prescription and save it again")
 	public void edit_the_favourite_prescription_and_save_it_again() throws Exception {
 		// edit fav ps
-		driver.findElement(By.xpath("(//i[@class='fa fa-pencil'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//i[@class='fa fa-pencil'])[1]"))).click();
 		Thread.sleep(3000);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0, 800)");
 		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("input#doctor_visit_nxt_vst_dur")).sendKeys("10" + Keys.TAB);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#doctor_visit_nxt_vst_dur")))
+				.sendKeys("10" + Keys.TAB);
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//li[text()='Weeks'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//li[text()='Weeks'])[1]"))).click();
 		Thread.sleep(2000);
 		WebElement teleconslt1 = driver.findElement(By.xpath("(//label[text()='Tele-consultation'])[1]"));
 		teleconslt1.click();
@@ -522,8 +555,9 @@ public class Favouriteprescription {
 		video1.click();
 		Thread.sleep(1000);
 		// save
-		driver.findElement(By.xpath("(//input[@id='saveBtn'])[1]")).click();
-		Thread.sleep(3000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='saveBtn'])[1]"))).click();
+		Thread.sleep(5000);
+		driver.close();
 	}
 
 	@Given("nav to nanohealth login url {string}")
@@ -549,41 +583,53 @@ public class Favouriteprescription {
 
 	@Then("enter the email12 {string} password12 {string}")
 	public void enter_the_email12_password12(String email12, String password12) throws Exception {
-		driver.findElement(By.id("user_login")).sendKeys(email12);
-		driver.findElement(By.id("user_password")).sendKeys(password12);
-		Thread.sleep(15000);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("user_login"))).sendKeys(email12);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("user_password"))).sendKeys(password12);
+		Thread.sleep(5000);
 	}
 
 	@And("click on the signin button to login into the doctor role")
 	public void click_on_the_signin_button_to_login_into_the_doctor_role() throws Exception {
-		driver.findElement(By.xpath("(//div[@class='sign-btn full-btn loginBtn btn_disable'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//div[@class='sign-btn full-btn loginBtn btn_disable'])[1]"))).click();
 		Thread.sleep(3000);
 		// selecting the NanoHealth CDP
-		driver.findElement(By.xpath("(//a[text()='nanohealthplan'])[1]")).click();
-		Thread.sleep(3000);
-		// selecting Role clicking on CDPAdmin
-		driver.findElement(By.xpath("(//div[normalize-space(text())='Doctor'])[1]")).click();
-		Thread.sleep(3000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[text()='nanohealthplan'])[1]"))).click();
+		// selecting cdpadmin Role
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[normalize-space(text())='CDPAdmin'])[1]")))
+				.click();
+		Robot robot = new Robot();
+		robot.keyPress(KeyEvent.VK_CONTROL);
+		robot.keyPress(KeyEvent.VK_SUBTRACT);
+		Thread.sleep(1000); // kept for Robot physical actions
+		robot.keyRelease(KeyEvent.VK_SUBTRACT);
+		robot.keyRelease(KeyEvent.VK_CONTROL);
+		Thread.sleep(2000);
 	}
 
 	@When("sign in button was clicked and then doctor dashboard opens")
 	public void sign_in_button_was_clicked_and_then_doctor_dashboard_opens() throws Exception {
-		System.out.println("Doctor Dashboard is opened successfully.");
+		// System.out.println("Doctor Dashboard is opened successfully.");
 	}
 
 	@Then("click on the myaccount button and click on configurations button")
 	public void click_on_the_myaccount_button_and_click_on_configurations_button() throws Exception {
-		driver.findElement(By.xpath("(//div[@class='profile-img'])[1]/img[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@class='profile-img'])[1]/img[1]")))
+				.click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//i[@class='fa fa-cog'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//i[@class='fa fa-cog'])[1]"))).click();
 		Thread.sleep(2000);
 	}
 
 	@And("from configurations section click on the dischargesummary button")
 	public void from_configurations_section_click_on_the_dischargesummary_button() throws Exception {
-		driver.findElement(By.xpath("(//a[text()='Configurations'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[text()='Configurations'])[1]"))).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//a[@id='doctorDesSum'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[@id='doctorDesSum'])[1]"))).click();
 		Thread.sleep(2000);
 	}
 
@@ -610,48 +656,61 @@ public class Favouriteprescription {
 	@And("create the favourite dischargesummary and save it")
 	public void create_the_favourite_dischargesummary_and_save_it() throws Exception {
 		// clicking on the plus button to addnew
-		driver.findElement(By.xpath("(//a[@id='fav_precription_creation'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[@id='fav_precription_creation'])[1]")))
+				.click();
 		Thread.sleep(5000);
-		driver.findElement(By.xpath("(//input[@id='Favourite_Prescription_Name'])[1]")).sendKeys("Cucum Fav Ds");
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='Favourite_Prescription_Name'])[1]")))
+				.sendKeys("Cucum Fav Ds");
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[1]")).sendKeys("Testing type" + Keys.ENTER);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[1]")))
+				.sendKeys("Testing type" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[1]"))
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[1]")))
 				.sendKeys("Accompained by family" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[1]")).sendKeys("Testing");
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[1]")))
+				.sendKeys("Testing");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// clicking on the reset button
-		driver.findElement(By.xpath("(//a[text()='Reset'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[text()='Reset'])[1]"))).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//input[@id='Favourite_Prescription_Name'])[1]")).sendKeys("Cucum Fav Ds");
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='Favourite_Prescription_Name'])[1]")))
+				.sendKeys("Cucum Fav Ds");
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[1]"))
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[1]")))
 				.sendKeys("Test diagnosis at time of admission1" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[1]"))
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[1]")))
 				.sendKeys("Test diagnosis at time of admission2" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[1]"))
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[1]")))
 				.sendKeys("Test diagnosis at time of admission3");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@id='doctor_visit_comorbidity'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='doctor_visit_comorbidity'])[1]")))
+				.click();
 		Thread.sleep(2000);
 		Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_ENTER);
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//input[@name='doctor_visit[comorbidity][][dur]'])[1]")).sendKeys("1" + Keys.TAB);
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//input[@name='doctor_visit[comorbidity][][dur]'])[1]")))
+				.sendKeys("1" + Keys.TAB);
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//li[text()='Week'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//li[text()='Week'])[1]"))).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//div[@class='input_note_cmrb'])[1]/i[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@class='input_note_cmrb'])[1]/i[1]")))
+				.click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@name='doctor_visit[comorbidity][][note]'])[1]"))
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//input[@name='doctor_visit[comorbidity][][note]'])[1]")))
 				.sendKeys("Test diagnosis notes");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//div[@class='input_note_cmrb'])[1]/i[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@class='input_note_cmrb'])[1]/i[1]")))
+				.click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@id='doctor_visit_comorbidity'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='doctor_visit_comorbidity'])[1]")))
+				.click();
 		Thread.sleep(2000);
 		for (int i = 0; i <= 1; i++) {
 			robot.keyPress(KeyEvent.VK_RIGHT);
@@ -659,9 +718,11 @@ public class Favouriteprescription {
 		}
 		robot.keyPress(KeyEvent.VK_ENTER);
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//input[@name='doctor_visit[comorbidity][][dur]'])[2]")).sendKeys("2" + Keys.TAB);
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//input[@name='doctor_visit[comorbidity][][dur]'])[2]")))
+				.sendKeys("2" + Keys.TAB);
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//li[text()='Months'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//li[text()='Months'])[1]"))).click();
 		Thread.sleep(2000);
 		WebElement brandInput = driver.findElement(By.xpath("(//input[@id='doctor_visit_comorbidity'])[1]"));
 		String text = "Cancer";
@@ -674,33 +735,38 @@ public class Favouriteprescription {
 		robot.keyPress(KeyEvent.VK_ENTER);
 		Thread.sleep(2000);
 		// remove
-		driver.findElement(By.xpath("(//div[@class='input_close_cmrb'])[3]/i[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@class='input_close_cmrb'])[3]/i[1]")))
+				.click();
 		Thread.sleep(2000);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0, 100)");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[2]"))
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[2]")))
 				.sendKeys("Test patient history1" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[2]"))
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[2]")))
 				.sendKeys("patient history" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[2]"))
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[2]")))
 				.sendKeys("patienthistory" + Keys.UP + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[2]")).sendKeys("pat hstry");
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[2]")))
+				.sendKeys("pat hstry");
 		Thread.sleep(1000);
 		// JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0, 200)");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@id='doctor_visit_complaints'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='doctor_visit_complaints'])[1]")))
+				.click();
 		Thread.sleep(2000);
 		// Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_ENTER);
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//input[@name='doctor_visit[complaints][][dur]'])[1]")).sendKeys("1" + Keys.TAB);
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//input[@name='doctor_visit[complaints][][dur]'])[1]")))
+				.sendKeys("1" + Keys.TAB);
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//li[text()='Month'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//li[text()='Month'])[1]"))).click();
 		Thread.sleep(2000);
 		// driver.findElement(By.xpath("(//input[@id='doctor_visit_complaints'])[1]")).click();
 		// Thread.sleep(2000);
@@ -710,11 +776,14 @@ public class Favouriteprescription {
 		}
 		robot.keyPress(KeyEvent.VK_ENTER);
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//input[@name='doctor_visit[complaints][][dur]'])[2]")).sendKeys("2" + Keys.TAB);
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//input[@name='doctor_visit[complaints][][dur]'])[2]")))
+				.sendKeys("2" + Keys.TAB);
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//li[text()='Days'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//li[text()='Days'])[1]"))).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//input[@id='doctor_visit_complaints'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='doctor_visit_complaints'])[1]")))
+				.click();
 		Thread.sleep(2000);
 		WebElement brandInput1 = driver.findElement(By.xpath("(//input[@id='doctor_visit_complaints'])[1]"));
 		String text1 = "Symptom";
@@ -725,12 +794,15 @@ public class Favouriteprescription {
 		// Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_ENTER);
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//input[@name='doctor_visit[complaints][][dur]'])[3]")).sendKeys("2" + Keys.TAB);
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//input[@name='doctor_visit[complaints][][dur]'])[3]")))
+				.sendKeys("2" + Keys.TAB);
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//li[text()='Years'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//li[text()='Years'])[1]"))).click();
 		Thread.sleep(2000);
 		// remove
-		driver.findElement(By.xpath("(//div[@id='input_close_cmpl'])[3]/i[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@id='input_close_cmpl'])[3]/i[1]")))
+				.click();
 		Thread.sleep(2000);
 		// JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0, 100)");
@@ -738,47 +810,55 @@ public class Favouriteprescription {
 		// Robot escape = new Robot();
 		// escape.keyPress(KeyEvent.VK_ESCAPE);
 		// Thread.sleep(2000);
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[3]"))
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[3]")))
 				.sendKeys("Test hospital course" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[3]"))
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[3]")))
 				.sendKeys("Test hospital course2" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[3]")).sendKeys("Test hospital course3");
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[3]")))
+				.sendKeys("Test hospital course3");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0, 100)");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[4]")).sendKeys("Dolo 650" + Keys.ENTER);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[4]")))
+				.sendKeys("Dolo 650" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[4]"))
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[4]")))
 				.sendKeys("Test medicine Syrup" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[4]")).sendKeys("Test Cap Cipla");
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[4]")))
+				.sendKeys("Test Cap Cipla");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0, 100)");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[5]"))
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[5]")))
 				.sendKeys("Test condition1" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[5]"))
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[5]")))
 				.sendKeys("Test condition2" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[5]")).sendKeys("Test condition3");
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[5]")))
+				.sendKeys("Test condition3");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0, 200)");
 		Thread.sleep(1000);
 
-		driver.findElement(By.xpath("(//div[normalize-space(text())='Height(Cms)'])[1]/following-sibling::input[1]"))
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("(//div[normalize-space(text())='Height(Cms)'])[1]/following-sibling::input[1]")))
 				.sendKeys("170");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//div[normalize-space(text())='Weight(Kgs)'])[1]/following-sibling::input[1]"))
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("(//div[normalize-space(text())='Weight(Kgs)'])[1]/following-sibling::input[1]")))
 				.sendKeys("69" + Keys.TAB);
 		Thread.sleep(1000);
 		// bmi
-		driver.findElement(By.xpath("(//div[contains(text(),'BMI')])[1]/following-sibling::input[1]")).click();
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//div[contains(text(),'BMI')])[1]/following-sibling::input[1]")))
+				.click();
 		Thread.sleep(1000);
 //		Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_TAB);
@@ -789,18 +869,21 @@ public class Favouriteprescription {
 		Thread.sleep(1000);
 		robot.keyPress(KeyEvent.VK_1);
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//div[normalize-space(text())='Pulse(bpm)'])[1]/following-sibling::input[1]"))
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("(//div[normalize-space(text())='Pulse(bpm)'])[1]/following-sibling::input[1]")))
 				.sendKeys("98");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 
-		driver.findElement(By.xpath("(//div[normalize-space(text())='SpO2(%)'])[1]/following-sibling::input[1]"))
-				.sendKeys("76");
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("(//div[normalize-space(text())='SpO2(%)'])[1]/following-sibling::input[1]"))).sendKeys("76");
 		Thread.sleep(1000);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//div[normalize-space(text())='Waist(cms)'])[1]/following-sibling::input[1]"))
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("(//div[normalize-space(text())='Waist(cms)'])[1]/following-sibling::input[1]")))
 				.sendKeys("32");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//div[normalize-space(text())='Hip(cms)'])[1]/following-sibling::input[1]"))
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("(//div[normalize-space(text())='Hip(cms)'])[1]/following-sibling::input[1]")))
 				.sendKeys("31" + Keys.TAB);
 		Thread.sleep(1000);
 
@@ -809,45 +892,52 @@ public class Favouriteprescription {
 		Thread.sleep(2000);
 
 		// advice on discharge
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[6]"))
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[6]")))
 				.sendKeys("test advice on ds1" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[6]"))
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[6]")))
 				.sendKeys("test advice on ds2" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//textarea[@id='bulletPointTextNew'])[6]")).sendKeys("test advice on ds3");
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='bulletPointTextNew'])[6]")))
+				.sendKeys("test advice on ds3");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0, 200)");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//label[text()='Medicine'])[1]/preceding-sibling::input[1]")).click();
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//label[text()='Medicine'])[1]/preceding-sibling::input[1]"))).click();
 		Thread.sleep(3000);
 		Robot robot1 = new Robot();
 		robot1.keyPress(KeyEvent.VK_ENTER);
 		Thread.sleep(2000);
-		driver.findElement(
-				By.xpath("(//input[@class='prescriptionInput-medications end_duration numeric_with_out_dot'])[1]"))
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("(//input[@class='prescriptionInput-medications end_duration numeric_with_out_dot'])[1]")))
 				.clear();
 		Thread.sleep(1000);
-		driver.findElement(
-				By.xpath("(//input[@class='prescriptionInput-medications end_duration numeric_with_out_dot'])[1]"))
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("(//input[@class='prescriptionInput-medications end_duration numeric_with_out_dot'])[1]")))
 				.sendKeys("2");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//label[text()='Type'])[1]/following-sibling::span[1]")).click();
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//label[text()='Type'])[1]/following-sibling::span[1]"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//li[text()='Weeks'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//li[text()='Weeks'])[1]"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//img[@data-tooltip='More'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//img[@data-tooltip='More'])[1]"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@class='medication_notes'])[1]")).clear();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@class='medication_notes'])[1]")))
+				.clear();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@class='medication_notes'])[1]")).sendKeys("Test medicine notes");
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@class='medication_notes'])[1]")))
+				.sendKeys("Test medicine notes");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//img[@data-tooltip='Less'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//img[@data-tooltip='Less'])[1]"))).click();
 		Thread.sleep(2000);
 		js.executeScript("window.scrollBy(0, 200)");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@id='recommended_lab_input_helper'])[1]")).click();
+		wait.until(
+				ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='recommended_lab_input_helper'])[1]")))
+				.click();
 		Thread.sleep(2000);
 		// Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_ENTER);
@@ -860,15 +950,18 @@ public class Favouriteprescription {
 		}
 		robot.keyPress(KeyEvent.VK_ENTER);
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//input[@id='recommended_lab_input_helper'])[1]")).click();
+		wait.until(
+				ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='recommended_lab_input_helper'])[1]")))
+				.click();
 		Thread.sleep(1000);
 		// Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_ENTER);
 		Thread.sleep(2000);
 		// remove
-		driver.findElement(By.xpath("(//i[@class='material-icons close lab_chip_close'])[3]")).click();
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//i[@class='material-icons close lab_chip_close'])[3]"))).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//input[@id='packages_input'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='packages_input'])[1]"))).click();
 		Thread.sleep(2000);
 		// Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_ENTER);
@@ -881,20 +974,22 @@ public class Favouriteprescription {
 		}
 		robot.keyPress(KeyEvent.VK_ENTER);
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//input[@id='packages_input'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='packages_input'])[1]"))).click();
 		Thread.sleep(1000);
 		// Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_ENTER);
 		Thread.sleep(2000);
 		// remove
-		driver.findElement(By.xpath("(//i[@class='material-icons close package_chip_close'])[3]")).click();
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//i[@class='material-icons close package_chip_close'])[3]"))).click();
 		Thread.sleep(2000);
 		// JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0, 200)");
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//input[@id='doctor_visit_nxt_vst_dur'])[1]")).sendKeys("5" + Keys.TAB);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='doctor_visit_nxt_vst_dur'])[1]")))
+				.sendKeys("5" + Keys.TAB);
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//li[text()='Weeks'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//li[text()='Weeks'])[1]"))).click();
 		Thread.sleep(1000);
 		// Robot robot = new Robot();
 		for (int i = 0; i <= 1; i++) {
@@ -902,37 +997,43 @@ public class Favouriteprescription {
 			Thread.sleep(1000);
 		}
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//textarea[@id='textareaField'])[1]")).sendKeys("Test comments1" + Keys.ENTER);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='textareaField'])[1]")))
+				.sendKeys("Test comments1" + Keys.ENTER);
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//textarea[@id='textareaField'])[1]")).sendKeys("Test comments2" + Keys.ENTER);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='textareaField'])[1]")))
+				.sendKeys("Test comments2" + Keys.ENTER);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//textarea[@id='textareaField'])[1]")).sendKeys("Test comments3" + Keys.ENTER);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//textarea[@id='textareaField'])[1]")))
+				.sendKeys("Test comments3" + Keys.ENTER);
 		Thread.sleep(3000);
 		// save
-		driver.findElement(By.xpath("(//input[@id='saveBtn'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='saveBtn'])[1]"))).click();
 		Thread.sleep(3000);
 	}
 
 	@Then("edit the favourite dischargesummary and save it again")
 	public void edit_the_favourite_dischargesummary_and_save_it_again() throws Exception {
 		// edit fav ps
-		driver.findElement(By.xpath(
-				"//table[@id='example']//tr[td[contains(normalize-space(.),'Cucum Fav Ps')]]//a[@data-tooltip='Edit '][1]/i[1]"))
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
+				"//table[@id='example']//tr[td[contains(normalize-space(.),'Cucum Fav Ps')]]//a[@data-tooltip='Edit '][1]/i[1]")))
 				.click();
 		Thread.sleep(3000);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0, 1000)");
 		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("input#doctor_visit_nxt_vst_dur")).sendKeys("10" + Keys.TAB);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#doctor_visit_nxt_vst_dur")))
+				.sendKeys("10" + Keys.TAB);
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//li[text()='Weeks'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//li[text()='Weeks'])[1]"))).click();
 		Thread.sleep(2000);
 		WebElement teleconslt1 = driver.findElement(By.xpath("(//label[text()='Tele-consultation'])[1]"));
 		teleconslt1.click();
 		Thread.sleep(1000);
 		// save
-		driver.findElement(By.xpath("(//input[@id='saveBtn'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='saveBtn'])[1]"))).click();
 		Thread.sleep(3000);
+		driver.close();
 	}
 
 }

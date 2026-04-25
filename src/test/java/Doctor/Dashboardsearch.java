@@ -1,5 +1,7 @@
 package Doctor;
 
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.time.Duration;
 import java.util.Set;
 
@@ -41,25 +43,34 @@ public class Dashboardsearch {
 
 	@Then("enter email6 {string} password7 {string}")
 	public void enter_email6_password7(String email6, String password7) throws Exception {
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-		driver.findElement(By.id("user_login")).sendKeys(email6);
-		driver.findElement(By.id("user_password")).sendKeys(password7);
-		Thread.sleep(15000);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("user_login"))).sendKeys(email6);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("user_password"))).sendKeys(password7);
+		Thread.sleep(5000);
 	}
 
 	@Then("sign_in_button is clicked")
 	public void sign_in_button_is_clicked() throws Exception {
-		driver.findElement(By.xpath("(//div[@class='sign-btn full-btn loginBtn btn_disable'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//div[@class='sign-btn full-btn loginBtn btn_disable'])[1]"))).click();
 		Thread.sleep(3000);
 	}
 
 	@Then("doctor dashboard opens")
 	public void doctor_dashboard_opens() throws Exception {
 		// selecting the NanoHealth CDP
-		driver.findElement(By.xpath("(//a[text()='nanohealthplan'])[1]")).click();
-		Thread.sleep(3000);
-		// selecting Role clicking on CDPAdmin
-		driver.findElement(By.xpath("(//div[normalize-space(text())='Doctor'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[text()='nanohealthplan'])[1]"))).click();
+		// selecting cdpadmin Role
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[normalize-space(text())='Doctor'])[1]")))
+				.click();
+		Robot robot = new Robot();
+		robot.keyPress(KeyEvent.VK_CONTROL);
+		robot.keyPress(KeyEvent.VK_SUBTRACT);
+		Thread.sleep(1000); // kept for Robot physical actions
+		robot.keyRelease(KeyEvent.VK_SUBTRACT);
+		robot.keyRelease(KeyEvent.VK_CONTROL);
 		Thread.sleep(1000);
 	}
 
@@ -114,15 +125,17 @@ public class Dashboardsearch {
 		Thread.sleep(1000);
 		driver.navigate().refresh();
 		Thread.sleep(2000);
-//		// clicking on the list view
-//		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[text()='List View'])[1]"))).click();
-//		Thread.sleep(2000);
+
 	}
 
 	@Then("seaching with the list view")
 	public void seaching_with_the_list_view() throws Exception {
-		// clicking on the < button
+		// clicking on the list view
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[text()='List View'])[1]"))).click();
+		Thread.sleep(2000);
+		// clicking on the < button
+//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[normalize-space(text())='<'])[1]"))).click();
 		Thread.sleep(2000);
 		// clicking on the > button
@@ -307,6 +320,9 @@ public class Dashboardsearch {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='frst_nm'])[1]")))
 				.sendKeys("Cucum" + Keys.ENTER);
+		Thread.sleep(2000);
+		// clicking on the mycalendar
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//i[@class='fa fa-calendar'])[2]"))).click();
 		Thread.sleep(2000);
 	}
 
