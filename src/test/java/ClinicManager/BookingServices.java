@@ -48,29 +48,33 @@ public class BookingServices {
 
 	@Then("logging with the  emailid {string} and  password {string}")
 	public void login_with_sunilcm_gmail_com_and_demo(String emailid, String password) throws Exception {
-		driver.findElement(By.id("user_login")).sendKeys(emailid);
-		Thread.sleep(1000);
-		driver.findElement(By.id("user_password")).sendKeys(password);
-		Thread.sleep(8000);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("user_login"))).sendKeys(emailid);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("user_password"))).sendKeys(password);
+		Thread.sleep(5000);
 	}
 
 	@And("click on sign_in_button")
 	public void click_on_sign_in_button() throws Exception {
-		driver.findElement(By.xpath("(//div[@class='sign-btn full-btn loginBtn btn_disable'])[1]")).click();
-		Thread.sleep(3000);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//div[@class='sign-btn full-btn loginBtn btn_disable'])[1]"))).click();
 	}
 
 	@Then("select_the_profile")
 	public void select_the_profile() throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		// selecting the NanoHealth CDP
-		driver.findElement(By.xpath("(//a[text()='nanohealthplan'])[1]")).click();
-		Thread.sleep(3000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[text()='nanohealthplan'])[1]"))).click();
+
 	}
 
 	@And("deleting existing patient using search")
 	public void deleting_existing_patient_using_search() throws Exception {
-		// selecting Role clicking on CDPAdmin
-		driver.findElement(By.xpath("(//div[normalize-space(text())='CDPAdmin'])[1]")).click();
+		// selecting cdpadmin Role
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[normalize-space(text())='CDPAdmin'])[1]")))
+				.click();
 		Thread.sleep(3000);
 		Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_CONTROL);
@@ -79,36 +83,34 @@ public class BookingServices {
 		robot.keyRelease(KeyEvent.VK_SUBTRACT);
 		robot.keyRelease(KeyEvent.VK_CONTROL);
 		Thread.sleep(1000);
-		driver.findElement(By.id("frst_nm")).sendKeys("7789110017");
-		Thread.sleep(8000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("frst_nm"))).sendKeys("7789110017");
 		// clicking on the patient name
-		driver.findElement(By.cssSelector("div.col.s7.btn-loader.opt_search")).click();
-		Thread.sleep(2000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.col.s7.btn-loader.opt_search"))).click();
 		// clicking on the view profile
-		driver.findElement(By.xpath("(//a[text()='View Profile'])[1]")).click();
-		Thread.sleep(3000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[text()='View Profile'])[1]"))).click();
+
 		// close for pending amount
-		if (driver.findElement(By.xpath("/html/body/main/div/div[2]/div[22]/div/div[1]/span")).isDisplayed()) {
-			driver.findElement(By.xpath("/html/body/main/div/div[2]/div[22]/div/div[1]/span")).click();
-			Thread.sleep(1000);
+		if (driver.findElement(By.xpath("//*[@id=\"invoice_modal\"]/div/div[1]/span/i")).isDisplayed()) {
+			wait.until(
+					ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"invoice_modal\"]/div/div[1]/span/i")))
+					.click();
 			// clicking on the delete
-			driver.findElement(By.xpath("/html/body/header/div[1]/nav[2]/div/ul/li[7]/a/i")).click();
-			Thread.sleep(1000);
+			wait.until(ExpectedConditions
+					.elementToBeClickable(By.xpath("/html/body/header/div[1]/nav[2]/div/ul/li[7]/a/i"))).click();
 		} else {
 			// clicking on the delete
-			driver.findElement(By.xpath("/html/body/header/div[1]/nav[2]/div/ul/li[7]/a")).click();
-			Thread.sleep(1000);
+			wait.until(
+					ExpectedConditions.elementToBeClickable(By.xpath("/html/body/header/div[1]/nav[2]/div/ul/li[7]/a")))
+					.click();
 		}
 
 		// deleteing
-		driver.findElement(By.xpath("(//a[@class='btn-loader modal-action btn green submitBtn'])[1]")).click();
-		Thread.sleep(8000);
-//		driver.navigate().refresh();
-//		Thread.sleep(3000);
-
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//a[@class='btn-loader modal-action btn green submitBtn'])[1]")))
+				.click();
 		// clicking on the brand logo
-		driver.findElement(By.xpath("(//a[@class='brand-logo'])[1]")).click();
-		Thread.sleep(2000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[@class='brand-logo'])[1]/img[1]"))).click();
+		Thread.sleep(1000);
 	}
 
 	@Then("existing patient deleted")
@@ -117,25 +119,12 @@ public class BookingServices {
 
 	@And("click on add_patient_icon for registration")
 	public void click_on_add_patient_icon_for_registration() throws Exception {
-		/*
-		 * // signout
-		 * driver.findElement(By.xpath("(//div[@class='profile-img'])[1]/img[1]")).click
-		 * (); Thread.sleep(3000);
-		 * driver.findElement(By.xpath("(//i[@class='fa fa-sign-out'])[1]")).click();
-		 * Thread.sleep(5000);
-		 * driver.navigate().to("https://customer.nanohealthplan.com/users/sign_in");
-		 * Thread.sleep(3000);
-		 * driver.findElement(By.id("user_login")).sendKeys("sunilk@nh13.com");
-		 * driver.findElement(By.id("user_password")).sendKeys("Chakra@1");
-		 * Thread.sleep(1000); driver.findElement(By.name("commit")).click();
-		 * Thread.sleep(5000);
-		 */
-//		/*
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		// selecting the NanoHealth CDP
-		driver.findElement(By.xpath("(//a[text()='nanohealthplan'])[1]")).click();
-		Thread.sleep(2000);
-		// selecting Role clicking on clinic manager
-		driver.findElement(By.xpath("(//div[normalize-space(text())='Clinic_Manager - NanoHealth_OPD'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[text()='nanohealthplan'])[1]"))).click();
+		// selecting Role as IPBillingManager
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("(//div[normalize-space(text())='Clinic_Manager - NanoHealth_OPD'])[1]"))).click();
 		Thread.sleep(2000);
 	}
 
@@ -150,7 +139,8 @@ public class BookingServices {
 		Thread.sleep(3000);
 		// selecting the title
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-		driver.findElement(By.xpath("(//span[@class='selection'])[1]")).click();
+		addpatinet.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[@class='selection'])[1]")))
+				.click();
 		Thread.sleep(1000);
 //				driver.findElement(By.xpath("(//span[@class='selection'])[1]")).sendKeys(Keys.DOWN);
 //				Thread.sleep(1000);
@@ -167,40 +157,41 @@ public class BookingServices {
 			io.cucumber.datatable.DataTable dataTable) {
 		List<List<String>> regData = dataTable.asLists(String.class);
 		// firstname
-		driver.findElement(By.id("first_name")).sendKeys(regData.get(0).get(1));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("first_name"))).sendKeys(regData.get(0).get(1));
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// lastname
-		driver.findElement(By.id("lst_name")).sendKeys(regData.get(1).get(1));
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("lst_name"))).sendKeys(regData.get(1).get(1));
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// age
-		driver.findElement(By.id("age")).sendKeys(regData.get(2).get(1));
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("age"))).sendKeys(regData.get(2).get(1));
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		// phone
-		driver.findElement(By.id("nmbr")).sendKeys(regData.get(3).get(1));
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("nmbr"))).sendKeys(regData.get(3).get(1));
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// email
 //		driver.findElement(By.id("email")).sendKeys(regData.get(4).get(1));
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// addressline
-		driver.findElement(By.id("address-line1")).sendKeys(regData.get(4).get(1));
-		driver.findElement(By.id("autocomplete-input")).sendKeys(regData.get(5).get(1));
-		driver.findElement(By.id("landmark")).sendKeys(regData.get(6).get(1));
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("address-line1"))).sendKeys(regData.get(4).get(1));
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("autocomplete-input"))).sendKeys(regData.get(5).get(1));
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("landmark"))).sendKeys(regData.get(6).get(1));
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// city/html/body/main/div/form/div[2]/div/ul/li/div/div[9]/div[2]/input
-		driver.findElement(By.xpath("(//input[@id='city'])[1]")).clear();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='city'])[1]"))).clear();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//input[@id='city'])[1]")).sendKeys(regData.get(7).get(1));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='city'])[1]"))).sendKeys(regData.get(7).get(1));
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// district
-		driver.findElement(By.xpath("(//input[@id='district'])[1]")).clear();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='district'])[1]"))).clear();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//input[@id='district'])[1]")).sendKeys(regData.get(8).get(1));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='district'])[1]"))).sendKeys(regData.get(8).get(1));
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// pincode
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//input[@id='pn_cd'])[1]")).clear();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='pn_cd'])[1]"))).clear();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//input[@id='pn_cd'])[1]")).sendKeys(regData.get(9).get(1));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='pn_cd'])[1]"))).sendKeys(regData.get(9).get(1));
 	}
 
 	@Then("select the radio_buttons")
@@ -209,13 +200,13 @@ public class BookingServices {
 		pgdwn.keyPress(KeyEvent.VK_DOWN);
 		Thread.sleep(1000);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-		driver.findElement(By.xpath("(//input[@id='pn_cd'])[1]")).clear();
-		driver.findElement(By.xpath("(//input[@id='pn_cd'])[1]")).sendKeys("767676");
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='pn_cd'])[1]"))).clear();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='pn_cd'])[1]"))).sendKeys("767676");
 		Robot pgdwn1 = new Robot();
 		pgdwn1.keyPress(KeyEvent.VK_DOWN);
 		Thread.sleep(1000);
 		// referred by
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[@data-tooltip='Add Referral'])[1]"))).click();
 //		Thread.sleep(1000);
 		// digital
@@ -230,9 +221,9 @@ public class BookingServices {
 				.click();
 		Thread.sleep(2000);
 		// demand program
-		driver.findElement(By.xpath("(//span[@class='selection'])[6]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//span[@class='selection'])[6]"))).click();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-		driver.findElement(By.xpath("(//li[text()='MSNL1-Rudraram'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//li[text()='MSNL1-Rudraram'])[1]"))).click();
 		Thread.sleep(1000);
 		Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_TAB);
@@ -281,9 +272,9 @@ public class BookingServices {
 
 	@Then("from popup select the pickup location")
 	public void from_popup_select_the_pickup_location() {
-
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		// selecting the clinic
-		driver.findElement(By.xpath("(//h6[text()='Clinic'])[1]")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//h6[text()='Clinic'])[1]"))).click();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 
 	}
@@ -291,14 +282,17 @@ public class BookingServices {
 	@And("select the location and choose address")
 	public void select_the_location_and_choose_address() {
 		// selecting the address
-		driver.findElement(By.xpath("(//div[@class='provider-addresses'])[1]")).click();
+		
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@class='provider-addresses'])[1]"))).click();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 	}
 
 	@Then("from popup select the drop location")
 	public void from_popup_select_the_drop_location() {
 		// clicking on the home
-		driver.findElement(By.xpath("(//h6[text()='Home'])[2]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//h6[text()='Home'])[2]"))).click();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 
 	}
@@ -306,22 +300,24 @@ public class BookingServices {
 	@And("select the location and choose address for drop location")
 	public void select_the_location_and_choose_address_for_drop_location() throws InterruptedException {
 		// selecting the home
-		driver.findElement(By.xpath("(//div[@class='provider-addresses'])[2]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@class='provider-addresses'])[2]"))).click();
 		Thread.sleep(1000);
 	}
 
 	@Then("select the date and time for appointment")
 	public void select_the_date_and_time_for_appointment() throws Exception {
 		// date-time-selection
-		driver.findElement(By.cssSelector("input#appointment_tracking_apmnt_date")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#appointment_tracking_apmnt_date"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("td.is-today")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.is-today"))).click();
 		Thread.sleep(1000);
 		// slot-time
-		driver.findElement(By.cssSelector("input#appointment_tracking_slot_time")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#appointment_tracking_slot_time"))).click();
 		Thread.sleep(1000);
 		// clicking on the ok
-		driver.findElement(By.xpath("(//div[@class='confirmation-btns'])[2]/button[text()='Ok']")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@class='confirmation-btns'])[2]/button[text()='Ok']"))).click();
 		Thread.sleep(2000);
 	}
 
@@ -340,7 +336,8 @@ public class BookingServices {
 	@Then("enter the price and click on submit button")
 	public void enter_the_price_and_click_on_submit_button() throws Exception {
 		// entering the price
-		driver.findElement(By.cssSelector("input#appointment_tracking_order_value")).sendKeys("1000");
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#appointment_tracking_order_value"))).sendKeys("1000");
 		Thread.sleep(2000);
 		try {
 			// submit
@@ -480,13 +477,15 @@ public class BookingServices {
 
 	@And("click on the submit button from the invoice_page")
 	public void click_on_the_submit_button_from_the_invoice_page() throws Exception {
-		driver.findElement(By.cssSelector("button#bookNowBtn")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button#bookNowBtn"))).click();
 		Thread.sleep(3000);
 	}
 
 	@Then("click on the paybalance button again")
 	public void click_on_the_paybalance_button_again() throws Exception {
-		driver.findElement(By.xpath("(//a[text()='Pay Balance'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//a[text()='Pay Balance'])[1]"))).click();
 		Thread.sleep(3000);
 		Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_PAGE_DOWN);
@@ -575,7 +574,8 @@ public class BookingServices {
 	@And("clicking on the viewbutton and closingpopup for ambulancebooking")
 	public void clicking_on_the_viewbutton_and_closingpopup_for_ambulancebooking() throws Exception {
 		// clicking on the view
-		driver.findElement(By.xpath("(//a[text()='View'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//a[text()='View'])[1]"))).click();
 		Thread.sleep(5000);
 		Robot robot = new Robot();
 		Thread.sleep(1000);
@@ -610,7 +610,8 @@ public class BookingServices {
 		id.moveToElement(driver.findElement(By.xpath("(//a[@data-tooltip='Generate Invoice Id'])[1]"))).build()
 				.perform();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//a[@data-tooltip='Generate Invoice Id'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//a[@data-tooltip='Generate Invoice Id'])[1]"))).click();
 		Thread.sleep(2000);
 		// converting to tax invoice
 		Actions taxinv = new Actions(driver);
@@ -650,7 +651,7 @@ public class BookingServices {
 		Thread.sleep(2000);
 
 		// selecting itemwise and download inovice
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//span[@class='selection'])[1]"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//li[text()='Itemwise'])[1]"))).click();
 		// OP -Invoice itemwise wise pdf
@@ -926,7 +927,8 @@ public class BookingServices {
 			System.out.println();
 		}
 		// closing the tracking popup
-		driver.findElement(By.xpath("(//div[@id='invoiceUpdatesList'])[1]/div[1]/div[1]/span[1]/i[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@id='invoiceUpdatesList'])[1]/div[1]/div[1]/span[1]/i[1]"))).click();
 		Thread.sleep(3000);
 		Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_PAGE_DOWN);
@@ -1195,8 +1197,8 @@ public class BookingServices {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		wait.until(ExpectedConditions
 				.elementToBeClickable(By.cssSelector("a.btn.green.right.btn-loader2.service_wise_pdf"))).click();
-        Thread.sleep(3000); // requested delay for sharing	
-        }
+		Thread.sleep(3000); // requested delay for sharing
+	}
 
 	@And("clears existing mail and phone for diagnostic appointment")
 	public void clears_existing_mail_and_phone_for_diagnostic_appointment() throws Exception {
@@ -1214,7 +1216,7 @@ public class BookingServices {
 		Thread.sleep(1000);
 		wait.until(ExpectedConditions
 				.elementToBeClickable(By.xpath("(//input[@class='btn green right btn-loader submitBtn'])[1]"))).click();
-		Thread.sleep(15000); 
+		Thread.sleep(15000);
 		// large wait post submission
 	}
 
@@ -1232,7 +1234,7 @@ public class BookingServices {
 			}
 		} catch (Exception e) {
 		}
-		//Thread.sleep(2000);
+		// Thread.sleep(2000);
 	}
 
 	@Then("patientprofile  will be open")
@@ -1375,31 +1377,33 @@ public class BookingServices {
 		Thread.sleep(1000);
 		action1.sendKeys(Keys.ENTER).perform();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//td[@class='is-today'])[1]/button[1]")).click();
+//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//td[@class='is-today'])[1]/button[1]"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath(
-				"(//input[@name='patient_master[patient_questnr_value_details_attributes][4][result_value]'])[1]"))
+//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
+				"(//input[@name='patient_master[patient_questnr_value_details_attributes][4][result_value]'])[1]")))
 				.sendKeys("87900");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		action1.sendKeys(Keys.TAB).perform();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		action1.sendKeys("500").perform();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//input[@id='update_submit'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@id='update_submit'])[1]"))).click();
 		Thread.sleep(5000);
 		// clicking on the claim approval response button
-		driver.findElement(By.xpath("(//a[text()='Claim Approval Response'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//a[text()='Claim Approval Response'])[1]"))).click();
 		Thread.sleep(3000);
 
-		driver.findElement(
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("(//input[@id='patient_master_patient_questnr_value_details_attributes_0_result_value'])[1]"))
-				.click();
+				).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//td[@class='is-today'])[1]/button[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//td[@class='is-today'])[1]/button[1]"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath(
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
 				"(//input[@name='patient_master[patient_questnr_value_details_attributes][1][result_value]'])[1]"))
-				.sendKeys("87900");
+				).sendKeys("87900");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		Actions action11 = new Actions(driver);
 		action11.sendKeys(Keys.TAB).perform();
@@ -1410,17 +1414,17 @@ public class BookingServices {
 		Thread.sleep(1000);
 		action11.sendKeys(Keys.ENTER).perform();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//td[@class='is-today'])[1]/button[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//td[@class='is-today'])[1]/button[1]"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath(
-				"(//input[@name='patient_master[patient_questnr_value_details_attributes][4][result_value]'])[1]"))
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
+				"(//input[@name='patient_master[patient_questnr_value_details_attributes][4][result_value]'])[1]")))
 				.sendKeys("87900");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		action11.sendKeys(Keys.TAB).perform();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		action11.sendKeys("500").perform();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//input[@id='update_submit'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@id='update_submit'])[1]"))).click();
 		Thread.sleep(5000);
 
 	}
@@ -1691,7 +1695,8 @@ public class BookingServices {
 		inv.moveToElement(driver.findElement(By.xpath("(//a[@data-tooltip='Print Invoice'])[1]/img[1]"))).build()
 				.perform();
 		Thread.sleep(2000);
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[@data-tooltip='Print Invoice'])[1]/img[1]"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[@data-tooltip='Print Invoice'])[1]/img[1]")))
+				.click();
 		Thread.sleep(3000);
 
 		Robot robot3 = new Robot();
@@ -1707,10 +1712,12 @@ public class BookingServices {
 //		driver.findElement(By.xpath("(//a[@data-tooltip='Total Receipt'])[1]/img[1]")).click();
 //		Thread.sleep(2000);
 		// print
-		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("a.btn.green.right.tooltipped.service_wise_pdf"))).click();
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.cssSelector("a.btn.green.right.tooltipped.service_wise_pdf"))).click();
 		Thread.sleep(2000);
 		// print without details
-		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("a.btn.btn_blue.right.tooltipped.service_wise_pdf"))).click();
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.cssSelector("a.btn.btn_blue.right.tooltipped.service_wise_pdf"))).click();
 		Thread.sleep(3000);
 	}
 
@@ -1718,7 +1725,8 @@ public class BookingServices {
 	public void click_on_shareinvoice7_button() throws InterruptedException {
 		// share invoice
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("a.btn.green.right.btn-loader2.service_wise_pdf"))).click();
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.cssSelector("a.btn.green.right.btn-loader2.service_wise_pdf"))).click();
 		Thread.sleep(5000);
 
 	}
@@ -1919,13 +1927,19 @@ public class BookingServices {
 	public void we_can_change_the_slottime_here_for_doctorappointment() throws Exception {
 		// clicking on the slot time
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='appointment_tracking_slot_time'])[1]"))).click();
+		wait.until(
+				ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='appointment_tracking_slot_time'])[1]")))
+				.click();
 		Thread.sleep(1000);
 		// 6
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='timepicker-canvas']/following-sibling::div[1]/div[11]"))).click();
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("//div[@class='timepicker-canvas']/following-sibling::div[1]/div[11]")))
+				.click();
 		Thread.sleep(1000);
 		// ok
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@class='confirmation-btns'])[1]/button[2]"))).click();
+		wait.until(
+				ExpectedConditions.elementToBeClickable(By.xpath("(//div[@class='confirmation-btns'])[1]/button[2]")))
+				.click();
 		Thread.sleep(2000);
 	}
 
@@ -1973,7 +1987,8 @@ public class BookingServices {
 		// adding comment for the discount
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("span#applyCouponModal"))).click();
 		Thread.sleep(2000);
-		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("textarea#comments"))).sendKeys("10% discount for the doctor appointment");
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("textarea#comments")))
+				.sendKeys("10% discount for the doctor appointment");
 		Thread.sleep(2000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#applyCouponBtn"))).click();
 		Thread.sleep(2000);
@@ -1995,7 +2010,8 @@ public class BookingServices {
 		 * Thread.sleep(2000);
 		 */ driver.findElement(By.cssSelector("textarea#payment_cmnt")).sendKeys("Remaining balance amt paid.");
 		Thread.sleep(1000);
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[@class='modal-close btn green right payCmntOk'])[1]"))).click();
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("(//a[@class='modal-close btn green right payCmntOk'])[1]"))).click();
 		Thread.sleep(2000);
 
 //		// selecting the cash rad.btn
@@ -2218,54 +2234,58 @@ public class BookingServices {
 	@Then("select the procedure date and start end time")
 	public void select_the_procedure_date_and_start_end_time() throws Exception {
 		// selecting the procedure start time
-		driver.findElement(By.xpath("(//input[@id='start_time'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@id='start_time'])[1]"))).click();
 		Thread.sleep(1000);
 		// 11pm
-		driver.findElement(By.xpath("(//div[@class='timepicker-dial timepicker-hours'])[1]/div[11]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='timepicker-dial timepicker-hours'])[1]/div[11]"))).click();
 		Thread.sleep(1000);
 		// 00
-		driver.findElement(By.xpath("(//div[@class='timepicker-dial timepicker-minutes'])[1]/div[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='timepicker-dial timepicker-minutes'])[1]/div[1]"))).click();
 		Thread.sleep(1000);
 		// pm
-		driver.findElement(By.xpath("(//div[@class='timepicker-span-am-pm'])[1]/div[2]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='timepicker-span-am-pm'])[1]/div[2]"))).click();
 		Thread.sleep(1000);
 		// ok
-		driver.findElement(By.xpath("(//div[@class='timepicker-footer'])[1]/div[1]/button[2]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='timepicker-footer'])[1]/div[1]/button[2]"))).click();
 		Thread.sleep(1000);
 		// selecting the procedure end time
-		driver.findElement(By.xpath("(//input[@id='end_time'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@id='end_time'])[1]"))).click();
 		Thread.sleep(1000);
 		// 11pm
-		driver.findElement(By.xpath("(//div[@class='timepicker-dial timepicker-hours'])[1]/div[11]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='timepicker-dial timepicker-hours'])[1]/div[11]"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//div[@class='timepicker-dial timepicker-minutes'])[2]/div[12]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='timepicker-dial timepicker-minutes'])[2]/div[12]"))).click();
 		Thread.sleep(1000);
 		// pm
-		driver.findElement(By.xpath("(//div[@class='timepicker-span-am-pm'])[2]/div[2]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='timepicker-span-am-pm'])[2]/div[2]"))).click();
 		Thread.sleep(1000);
 		// ok
-		driver.findElement(By.xpath("(//div[@class='timepicker-footer'])[2]/div[1]/button[2]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='timepicker-footer'])[2]/div[1]/button[2]"))).click();
 		Thread.sleep(1000);
 
 	}
 
 	@And("click on the continue button from the dates popup")
 	public void click_on_the_continue_button_from_the_dates_popup() throws Exception {
-		driver.findElement(By.xpath("(//input[@id='continue-ot'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@id='continue-ot'])[1]"))).click();
 		Thread.sleep(2000);
 	}
 
 	@Then("select the lead doctor and click on the continue button")
 	public void select_the_lead_doctor_and_click_on_the_continue_button() throws Exception {
-		driver.findElement(By.xpath("(//a[contains(text(),'Dr. Doctor')])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//a[contains(text(),'Dr. Doctor')])[1]"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@id='continue-team'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@id='continue-team'])[1]"))).click();
 		Thread.sleep(3000);
 	}
 
 	@And("click on the submit button from invoice popup")
 	public void click_on_the_submit_button_from_invoice_popup() throws Exception {
-		driver.findElement(By.xpath("(//input[@id='btn-loader'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@id='btn-loader'])[1]"))).click();
 		Thread.sleep(3000);
 		Robot pgdwn = new Robot();
 		pgdwn.keyPress(KeyEvent.VK_PAGE_DOWN);
@@ -2274,20 +2294,20 @@ public class BookingServices {
 
 	@Then("enter the amount and generate the invoice id for the invoice")
 	public void enter_the_amount_and_generate_the_invoice_id_for_the_invoice() throws Exception {
-		driver.findElement(By.xpath("(//input[@id='advance_field'])[1]")).sendKeys("100");
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@id='advance_field'])[1]"))).sendKeys("100");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		// clicking on the comment
-		driver.findElement(By.cssSelector("i#paymentComment")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("i#paymentComment"))).click();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		// comment
-		driver.findElement(By.cssSelector("textarea#payment_cmnt"))
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("textarea#payment_cmnt")))
 				.sendKeys("receipt comment for 100 rupees for payment method cash");
 		Thread.sleep(1000);
 		// ok
-		driver.findElement(By.cssSelector("a.modal-close.btn.green.right.payCmntOk")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a.modal-close.btn.green.right.payCmntOk"))).click();
 		Thread.sleep(1000);
 		// submit
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("button#bookNowBtn")))).click();
 		Thread.sleep(3000);
 	}
@@ -2295,25 +2315,26 @@ public class BookingServices {
 	@And("download the invoice receipt and share invoice to the mail")
 	public void download_the_invoice_receipt_and_share_invoice_to_the_mail() throws Exception {
 		// generate the invoice
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		Actions id = new Actions(driver);
 		id.moveToElement(driver.findElement(By.xpath("(//a[@data-tooltip='Generate Invoice Id'])[1]"))).build()
 				.perform();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//a[@data-tooltip='Generate Invoice Id'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//a[@data-tooltip='Generate Invoice Id'])[1]"))).click();
 		Thread.sleep(2000);
 		// converting to tax invoice
 		Actions taxinv = new Actions(driver);
 		taxinv.moveToElement(driver.findElement(By.xpath("(//a[@data-tooltip='Convert to tax invoice'])[1]/img[1]")))
 				.build().perform();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//a[@data-tooltip='Convert to tax invoice'])[1]/img[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//a[@data-tooltip='Convert to tax invoice'])[1]/img[1]"))).click();
 		Thread.sleep(4000);
 		// download invoice
 		Actions inv = new Actions(driver);
 		inv.moveToElement(driver.findElement(By.xpath("(//a[@data-tooltip='Print Invoice'])[1]/img[1]"))).build()
 				.perform();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//a[@data-tooltip='Print Invoice'])[1]/img[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//a[@data-tooltip='Print Invoice'])[1]/img[1]"))).click();
 		Thread.sleep(5000);
 		Robot pgdwn = new Robot();
 		pgdwn.keyPress(KeyEvent.VK_PAGE_DOWN);
@@ -2324,29 +2345,30 @@ public class BookingServices {
 		rpt1.executeScript("arguments[0].scrollIntoView(true)", receipt1);
 		// driver.findElement(By.xpath("//div[@class='card'][1]/div/div[5]/div[2]/div[2]/a")).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//a[@data-tooltip='Total Receipt'])[1]/img[1]")).click();
+		
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//a[@data-tooltip='Total Receipt'])[1]/img[1]"))).click();
 		Thread.sleep(2000);
 		// print
-		driver.findElement(By.cssSelector("a.btn.green.right.tooltipped.service_wise_pdf")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a.btn.green.right.tooltipped.service_wise_pdf"))).click();
 		Thread.sleep(4000);
 		// print without details
-		driver.findElement(By.cssSelector("a.btn.btn_blue.right.tooltipped.service_wise_pdf")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a.btn.btn_blue.right.tooltipped.service_wise_pdf"))).click();
 		Thread.sleep(4000);
 		// share invoice
-		driver.findElement(By.cssSelector("a.btn.green.right.btn-loader2.service_wise_pdf")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a.btn.green.right.btn-loader2.service_wise_pdf"))).click();
 		Thread.sleep(3000);
-		driver.findElement(By.id("emails")).clear();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("emails"))).clear();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-		driver.findElement(By.id("phone")).clear();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("phone"))).clear();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-		driver.findElement(By.id("emails")).sendKeys("sunil.kommayella@nanohealth.in");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("emails"))).sendKeys("sunil.kommayella@nanohealth.in");
 		Thread.sleep(1000);
 		// submit
 		WebElement sub = driver.findElement(By.xpath("(//input[@class='btn green right btn-loader submitBtn'])[1]"));
 		sub.click();
 		Thread.sleep(10000);
 		// clicking on the patient name
-		driver.findElement(By.xpath("(//a[text()='Cucum Oppatient'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//a[text()='Cucum Oppatient'])[1]"))).click();
 		Thread.sleep(3000);
 		// close for pending amount
 		if (driver.findElement(By.xpath("(//div[@id='invoice_modal'])[1]/div[1]/div[1]/span[1]/i[1]")).isDisplayed()) {
@@ -2395,13 +2417,14 @@ public class BookingServices {
 	@And("select the programs and remove one of the program")
 	public void select_the_programa_and_remove_one_of_the_program() throws Exception {
 		// clicking on the plus
-		driver.findElement(By.xpath("(//i[text()='add'])[2]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//i[text()='add'])[2]"))).click();
 		Thread.sleep(2000);
 		// clicking on the plus
-		driver.findElement(By.xpath("(//i[text()='add'])[3]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//i[text()='add'])[3]"))).click();
 		Thread.sleep(2000);
 		// removing the last added program
-		driver.findElement(By.xpath("(//i[text()='remove'])[4]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//i[text()='remove'])[4]"))).click();
 		Thread.sleep(2000);
 	}
 
@@ -2418,40 +2441,40 @@ public class BookingServices {
 	@And("select addreferredby and select the program start date")
 	public void select_addreferredby_and_select_the_program_start_date() throws Exception {
 		// referred by
-		driver.findElement(By.xpath("(//label[text()='Referred By'])[1]/following-sibling::span[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//label[text()='Referred By'])[1]/following-sibling::span[1]"))).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//li[contains(text(),'Dr. Doctor')])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//li[contains(text(),'Dr. Doctor')])[1]"))).click();
 		Thread.sleep(2000);
 
 		// start date
-		driver.findElement(By.xpath("(//input[@class='pick-date stdt'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@class='pick-date stdt'])[1]"))).click();
 		Thread.sleep(1000);
 		// Click on Year dropdown
-		driver.findElement(By.xpath("(//div[@class='select-wrapper select-year'])[1]/input[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='select-wrapper select-year'])[1]/input[1]"))).click();
 		Thread.sleep(1000);
 		LocalDate today = LocalDate.now();
 		String currentYear = String.valueOf(today.getYear());
 		Thread.sleep(1000);
 		// Select current year dynamically
-		driver.findElement(By.xpath("//li/span[text()='" + currentYear + "']")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li/span[text()='" + currentYear + "']"))).click();
 		Thread.sleep(1000);
-
-		driver.findElement(By.xpath("(//div[@class='select-wrapper select-month'])[1]/input[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='select-wrapper select-month'])[1]/input[1]"))).click();
 		Thread.sleep(1000);
 		LocalDate today1 = LocalDate.now();
 		String currentMonth = today1.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
 		Thread.sleep(1000);
 		// Select current month dynamically
-		driver.findElement(By.xpath("//li/span[text()='" + currentMonth + "']")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li/span[text()='" + currentMonth + "']"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//td[@class='is-today'])[1]/button[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//td[@class='is-today'])[1]/button[1]"))).click();
 		// driver.findElement(By.xpath("//button[text()='21']")).click();
 		Thread.sleep(3000);
 		// click on the activity list
-		driver.findElement(By.xpath("(//img[@data-tooltip='View activity list'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@data-tooltip='View activity list'])[1]"))).click();
 		Thread.sleep(3000);
 		// clicking on the back button
-		driver.findElement(By.xpath("(//span[text()='Back'])[2]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Back'])[2]"))).click();
 		Thread.sleep(3000);
 		WebElement existinginv = driver.findElement(By.xpath("(//label[text()='Existing Invoice'])[1]"));
 		existinginv.click();
@@ -2464,7 +2487,7 @@ public class BookingServices {
 		opLink.click();
 
 		// Wait until a new tab is opened
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(driver1 -> driver1.getWindowHandles().size() > 1);
 
 		// Get all window handles after new tab opens
@@ -2506,7 +2529,8 @@ public class BookingServices {
 	@Then("click on the submit button from select invoice of addprogram booking")
 	public void click_on_the_submit_button_from_select_invoice_of_addprogram_booking() throws Exception {
 		// submit
-		driver.findElement(By.cssSelector("input#btn-loader")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#btn-loader"))).click();
 		Thread.sleep(2000);
 		Robot robot1 = new Robot();
 		robot1.keyPress(KeyEvent.VK_PAGE_DOWN);
@@ -2522,20 +2546,22 @@ public class BookingServices {
 
 	@When("user enters_the transaction_amount for program then receipt_comment will visible")
 	public void user_enters_the_transaction_amount_for_program_then_receipt_comment_will_visible() throws Exception {
-		driver.findElement(By.cssSelector("input#advance_field")).sendKeys("10");
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#advance_field"))).sendKeys("10");
 		Thread.sleep(1000);
 	}
 
 	@Then("click on receipt_comment and enter_comment for program appointment")
 	public void click_on_receipt_comment_and_enter_comment_for_program_appointment() throws Exception {
 		// clicking on the comment
-		driver.findElement(By.cssSelector("i#paymentComment")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("i#paymentComment"))).click();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		// comment
-		driver.findElement(By.cssSelector("textarea#payment_cmnt")).sendKeys("test receipt comment");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("textarea#payment_cmnt"))).sendKeys("test receipt comment");
 		Thread.sleep(1000);
 		// submit
-		driver.findElement(By.xpath("(//a[text()='Ok'])[2]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//a[text()='Ok'])[2]"))).click();
 		Thread.sleep(1000);
 
 	}
@@ -2862,7 +2888,8 @@ public class BookingServices {
 
 		String parentWindow = driver.getWindowHandle();
 		wait.until(ExpectedConditions.elementToBeClickable(
-				By.xpath("(//td[contains(normalize-space(),'Dr. Doctor one')])[1]/following-sibling::td[5]/a[1]"))).click();
+				By.xpath("(//td[contains(normalize-space(),'Dr. Doctor one')])[1]/following-sibling::td[5]/a[1]")))
+				.click();
 
 		wait.until(driver1 -> driver1.getWindowHandles().size() > 1);
 		for (String window : driver.getWindowHandles()) {

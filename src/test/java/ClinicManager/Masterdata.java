@@ -571,7 +571,9 @@ public class Masterdata {
 		Actions img = new Actions(driver);
 		img.moveToElement(driver.findElement(By.xpath("(//span[text()='Doctor Consultation'])[1]"))).build().perform();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//span[text()='Doctor Consultation'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Doctor Consultation'])[1]")))
+				.click();
 		Thread.sleep(7000);
 	}
 
@@ -587,26 +589,27 @@ public class Masterdata {
 		add.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//i[text()='add'][1]")))).click();
 		Thread.sleep(3000);
 		// selecting the salutation
-		driver.findElement(By.xpath("(//span[@class='selection'])[9]")).click();
+		add.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[@class='selection'])[9]"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//li[text()='Dr.'])[1]")).click();
+		add.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//li[text()='Dr.'])[1]"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("input#first_name")).sendKeys("Hospital");
+		add.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#first_name")))
+				.sendKeys("Hospital");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.cssSelector("input#lst_name")).sendKeys("Doctor");
+		add.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#lst_name"))).sendKeys("Doctor");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// gender
 		WebElement male = driver.findElement(By.xpath("//label[text()='M']"));
 		male.click();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// age
-		driver.findElement(By.cssSelector("input#age")).sendKeys("30");
+		add.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#age"))).sendKeys("30");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//span[@class='selection'])[10]")).click();
+		add.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[@class='selection'])[10]"))).click();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("//li[text()='+91']")).click();
+		add.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[text()='+91']"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("input#nmbr")).sendKeys("8733828282");
+		add.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#nmbr"))).sendKeys("8733828282");
 		Thread.sleep(1000);
 		Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_TAB);
@@ -615,7 +618,8 @@ public class Masterdata {
 		wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("(//button[text()='Continue'])[1]"))))
 				.click();
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//label[normalize-space(text())='Role']/preceding-sibling::span[1]")).click();
+		add.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//label[normalize-space(text())='Role']/preceding-sibling::span[1]"))).click();
 		Thread.sleep(1000);
 		// driver.findElement(By.xpath("(//li[text()='Doctor'])[1]")).click();
 		// Thread.sleep(3000);
@@ -623,11 +627,13 @@ public class Masterdata {
 				"//li[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'doctor')]"));
 		nameField.click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//label[normalize-space(text())='Hospitals']/following-sibling::span[1]")).click();
+		add.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//label[normalize-space(text())='Hospitals']/following-sibling::span[1]"))).click();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-		driver.findElement(By.xpath("(//li[text()='Cucum Hospital'])[1]")).click();
+		add.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//li[text()='Cucum Hospital'])[1]")))
+				.click();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-		driver.findElement(By.xpath("(//img[@data-tooltip='More'])[1]")).click();
+		add.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@data-tooltip='More'])[1]"))).click();
 		Thread.sleep(1000);
 		// full access
 		for (int i = 0; i <= 2; i++) {
@@ -651,7 +657,7 @@ public class Masterdata {
 		}
 		Thread.sleep(1000);
 		// save
-		driver.findElement(By.xpath("(//input[@value='Save'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@value='Save'])[1]"))).click();
 		Thread.sleep(5000);
 
 		/*
@@ -835,8 +841,11 @@ public class Masterdata {
 
 	@Then("click on the doctors button")
 	public void click_on_the_doctors_button() throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+
 		// searching opd hospital
-		driver.findElement(By.cssSelector("input#searchBoxx")).sendKeys("Nanohealth");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#searchBoxx")))
+				.sendKeys("Nanohealth");
 		Thread.sleep(2000);
 		JavascriptExecutor jse5 = (JavascriptExecutor) driver;
 		WebElement element = driver.findElement(By.xpath("(//option[text()='NanoHealth_OPD (Hospital)'])[1]"));
@@ -846,7 +855,6 @@ public class Masterdata {
 		Actions action = new Actions(driver);
 		action.moveToElement(driver.findElement(By.xpath("(//div[text()='NanoHealth_OPD'])[1]"))).build().perform();
 		Thread.sleep(3000);
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		// clicking on the doctor Consultation
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Doctor Consultation'])[1]")))
 				.click();
@@ -951,7 +959,8 @@ public class Masterdata {
 	public void click_on_the_continue_button_to_add_doctor_role_in_the_next_popup() throws Exception {
 		// upload picture
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//a[@data-tooltip='Upload Picture'])[1]/span/i[1]")).click();
+		wait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath("(//a[@data-tooltip='Upload Picture'])[1]/span/i[1]"))).click();
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("input#upload_img"))
 				.sendKeys("C:\\Users\\Admin\\Desktop\\Automationuploadfile\\Doctor.png");
@@ -2173,7 +2182,7 @@ public class Masterdata {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#nmbr"))).sendKeys("7788992222");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// upload picture
-		driver.findElement(By.xpath("(//a[@data-tooltip='Upload Picture'])[1]/span/i[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//a[@data-tooltip='Upload Picture'])[1]/span/i[1]"))).click();
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("input#upload_img"))
 				.sendKeys("C:\\Users\\Admin\\Desktop\\Automationuploadfile\\Dietitian.png");
@@ -2183,7 +2192,7 @@ public class Masterdata {
 		Actions action = new Actions(driver);
 		action.dragAndDropBy(slider, -300, 0).perform();
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("button#submitBtn")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button#submitBtn"))).click();
 		Thread.sleep(2000);
 
 		Robot robot = new Robot();
@@ -2626,7 +2635,7 @@ public class Masterdata {
 	public void drag_and_drop_to_create_a_new_pharmacy() throws Exception {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		// clicking on the add new button
-		driver.findElement(By.xpath("(//img[@class='plusminus'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@class='plusminus'])[1]"))).click();
 		Thread.sleep(2000);
 		Actions action1 = new Actions(driver);
 		try {
@@ -2639,7 +2648,7 @@ public class Masterdata {
 		// action1.dragAndDrop(driver.findElement(By.xpath("(//img[@alt='PharmaIcon'])[1]")),
 		// driver.findElement(By.xpath("(//div[@class='react-flow__pane'])[1]"))).build().perform();
 		// click on the pharmacy icon to create new
-		driver.findElement(By.xpath("(//img[@alt='PharmaIcon'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@alt='PharmaIcon'])[1]"))).click();
 		Thread.sleep(3000);
 	}
 
@@ -2657,7 +2666,8 @@ public class Masterdata {
 				.perform();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// Pharmacy name
-		driver.findElement(By.xpath("(//label[@id='HospitalLabel'])[1]/following-sibling::div/input"))
+		wait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath("(//label[@id='HospitalLabel'])[1]/following-sibling::div/input")))
 				.sendKeys("Cucum Pharmacy");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		Actions action2 = new Actions(driver);
@@ -2665,7 +2675,8 @@ public class Masterdata {
 				.perform();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// Pharmacy license code
-		driver.findElement(By.xpath("(//label[@id='HospitalLabel'])[2]/following-sibling::div/input"))
+		wait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath("(//label[@id='HospitalLabel'])[2]/following-sibling::div/input")))
 				.sendKeys("12345678910");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		Actions action3 = new Actions(driver);
@@ -2673,7 +2684,8 @@ public class Masterdata {
 				.perform();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// GST Number
-		driver.findElement(By.xpath("(//label[@id='HospitalLabel'])[3]/following-sibling::div/input"))
+		wait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath("(//label[@id='HospitalLabel'])[3]/following-sibling::div/input")))
 				.sendKeys("22AAAAA0000A1Z5");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		Actions action4 = new Actions(driver);
@@ -2689,7 +2701,7 @@ public class Masterdata {
 				.sendKeys("C:\\Users\\Admin\\Desktop\\Automationuploadfile\\CFA_footer.png" + "");
 		Thread.sleep(2000);
 		// preview
-		driver.findElement(By.cssSelector("a#hospitalPBtn")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a#hospitalPBtn"))).click();
 		Thread.sleep(3000);
 		Actions action8 = new Actions(driver);
 		action8.moveToElement(driver.findElement(By.xpath("(//span[text()='Is Retailer'])[1]"))).build().perform();
@@ -2760,7 +2772,9 @@ public class Masterdata {
 
 	@And("add the address for pharmacy and save the pharmacy")
 	public void add_the_address_for_pharmacy_and_save_the_pharmacy() throws Exception {
-		driver.findElement(By.cssSelector("input#searchBoxx")).sendKeys("Cucum Hospital");
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#searchBoxx")))
+				.sendKeys("Cucum Hospital");
 		Thread.sleep(3000);
 		JavascriptExecutor jse5 = (JavascriptExecutor) driver;
 		WebElement element = driver.findElement(By.xpath("(//option[text()='Cucum Hospital (Hospital)'])[1]"));
@@ -2774,12 +2788,12 @@ public class Masterdata {
 		actions.doubleClick(doubclick).perform();
 		Thread.sleep(2000);
 		// edit
-		driver.findElement(By.xpath("(//button[text()='Edit'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Edit'])[1]"))).click();
 		Thread.sleep(2000);
 		Actions action = new Actions(driver);
 		action.moveToElement(driver.findElement(By.xpath("(//img[@class='addphone'])[1]"))).build().perform();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//img[@class='addphone'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@class='addphone'])[1]"))).click();
 		Thread.sleep(2000);
 		// driver.findElement(By.xpath("(//label[@id='HospitalLabel'])[18]/following-sibling::div/input[1]"))
 		// .sendKeys("Test line1");
@@ -2814,15 +2828,18 @@ public class Masterdata {
 		// // clicking on the edit button
 		// driver.findElement(By.xpath("(//button[text()='Edit'])[1]")).click();
 		// Thread.sleep(2000);
-		driver.findElement(By.xpath("(//label[@id='HospitalLabel'])[18]/following-sibling::div/input[1]")).clear();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("(//label[@id='HospitalLabel'])[18]/following-sibling::div/input[1]"))).clear();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//label[@id='HospitalLabel'])[18]/following-sibling::div/input[1]"))
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("(//label[@id='HospitalLabel'])[18]/following-sibling::div/input[1]")))
 				.sendKeys("CDPconfig address");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//label[@id='HospitalLabel'])[19]/following-sibling::div/input[1]")).clear();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("(//label[@id='HospitalLabel'])[19]/following-sibling::div/input[1]"))).clear();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//label[@id='HospitalLabel'])[19]/following-sibling::div/input[1]"))
-				.sendKeys("test line2");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("(//label[@id='HospitalLabel'])[19]/following-sibling::div/input[1]"))).sendKeys("test line2");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		// city
 		WebElement city = driver
@@ -2892,7 +2909,8 @@ public class Masterdata {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#hospital-number")))
 				.sendKeys("7893214521");
 //		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("input#hospital-email")).sendKeys("pharmacye@gmail.com");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#hospital-email")))
+				.sendKeys("pharmacye@gmail.com");
 		Thread.sleep(1000);
 		try {
 			// save
@@ -4737,7 +4755,7 @@ public class Masterdata {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		Thread.sleep(1000);
 		// reset
-		driver.findElement(By.xpath("//a[text()='Reset']")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='Reset']"))).click();
 		Thread.sleep(1000);
 		// test type
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[@class='selection'])[2]"))).click();
@@ -5059,9 +5077,11 @@ public class Masterdata {
 //		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@id='copy_pkg_test_name'])[1]")))
 //				.sendKeys("Copy as popular package" + Keys.TAB);
 //		Thread.sleep(2000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//li[text()='Testing_package'])[1]"))).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//li[text()='Testing_package'])[1]")))
+				.click();
 		Thread.sleep(3000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@id='copy_pkg_test_name'])[1]"))).sendKeys("Copy as popular package" + Keys.TAB);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@id='copy_pkg_test_name'])[1]")))
+				.sendKeys("Copy as popular package" + Keys.TAB);
 		Thread.sleep(2000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Continue'])[1]"))).click();
 		Thread.sleep(3000);
@@ -5255,7 +5275,7 @@ public class Masterdata {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Continue'])[1]"))).click();
 		Thread.sleep(3000);
 	}
-	
+
 	@And("select the role from the roles popup and select the required options from the role fields")
 	public void select_the_role_from_the_roles_popup_and_select_the_required_options_from_the_role_fields()
 			throws Exception {
@@ -5415,19 +5435,21 @@ public class Masterdata {
 		WebElement discount = driver.findElement(By.xpath("(//label[text()='Yes'])[1]"));
 		discount.click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//label[text()='Report Access (Days)'])[1]/following-sibling::input[1]"))
-				.sendKeys("10");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("(//label[text()='Report Access (Days)'])[1]/following-sibling::input[1]"))).sendKeys("10");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//label[text()='Past Access (Days)'])[1]/following-sibling::input[1]"))
-				.sendKeys("10");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("(//label[text()='Past Access (Days)'])[1]/following-sibling::input[1]"))).sendKeys("10");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		WebElement yes1 = driver.findElement(By.xpath("(//label[text()='Yes'])[2]"));
 		yes1.click();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//label[text()='Invoice Date Change (Days)'])[1]/following-sibling::input[1]"))
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("(//label[text()='Invoice Date Change (Days)'])[1]/following-sibling::input[1]")))
 				.sendKeys("10");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//label[text()='Invoice Date Change (Days)'])[1]/following-sibling::input[1]"))
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("(//label[text()='Invoice Date Change (Days)'])[1]/following-sibling::input[1]")))
 				.sendKeys(Keys.PAGE_DOWN);
 		Thread.sleep(1000);
 		WebElement fullaccess = driver.findElement(By.xpath("(//label[text()='Full Access'])[3]"));
@@ -5473,7 +5495,8 @@ public class Masterdata {
 		createpswd.click();
 		Thread.sleep(1000);
 		// entering test dummy password
-		driver.findElement(By.cssSelector("input#user_password")).sendKeys("Demo@123");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#user_password")))
+				.sendKeys("Demo@123");
 		Thread.sleep(1000);
 		// select automatically generate a password
 		WebElement automatpswd = driver
@@ -5488,13 +5511,14 @@ public class Masterdata {
 		// Thread.sleep(3000);
 
 		// searching through filter
-		driver.findElement(By.cssSelector("input#q_frst_nm_or_lst_nm_cont")).sendKeys("userrole");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#q_frst_nm_or_lst_nm_cont")))
+				.sendKeys("userrole");
 		Thread.sleep(1000);
 		// search
-		driver.findElement(By.xpath("(//input[@value='Search'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@value='Search'])[1]"))).click();
 		Thread.sleep(2000);
 		// reset
-		driver.findElement(By.cssSelector("a.btn.clear_btn.btn-loader")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a.btn.clear_btn.btn-loader"))).click();
 		Thread.sleep(2000);
 
 	}
@@ -5527,16 +5551,17 @@ public class Masterdata {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#first_name"))).sendKeys("Cucum");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.cssSelector("input#lst_name")).sendKeys("Healthcoach");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#lst_name")))
+				.sendKeys("Healthcoach");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		for (int i = 0; i <= 2; i++) {
 			WebElement female = driver.findElement(By.xpath("(//label[text()='F'])[1]"));
 			female.click();
 			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		}
-		driver.findElement(By.cssSelector("input#age")).sendKeys("35");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#age"))).sendKeys("35");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.id("email")).sendKeys("cucumhc@gmail.com");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("email"))).sendKeys("cucumhc@gmail.com");
 		Thread.sleep(1000);
 		Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_TAB);
@@ -5657,6 +5682,7 @@ public class Masterdata {
 
 	@And("upload the Aadhar PAN files")
 	public void upload_the_Aadhar_PAN_files() throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		Robot robot = new Robot();
 		for (int i = 0; i <= 1; i++) {
 			robot.keyPress(KeyEvent.VK_CONTROL);
@@ -5667,7 +5693,7 @@ public class Masterdata {
 			Thread.sleep(1000);
 		}
 		// Aadhar
-		driver.findElement(By.cssSelector("a#uploadAadhar")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a#uploadAadhar"))).click();
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//input[@id='upload_documents'])[1]"))
 				.sendKeys("C:\\Users\\Admin\\Desktop\\Automationuploadfile\\Aadhaar.png");
@@ -5676,12 +5702,12 @@ public class Masterdata {
 		Actions actions = new Actions(driver);
 		actions.clickAndHold(slider).moveByOffset(0, 50).release().perform(); // move down
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//button[text()='Update'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Update'])[1]"))).click();
 		Thread.sleep(2000);
 		// driver.findElement(By.xpath("(//span[@class='remove'])[1]/i[1]")).click();
 		// Thread.sleep(2000);
 		// Aadhar
-		driver.findElement(By.cssSelector("a#uploadAadhar")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a#uploadAadhar"))).click();
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//input[@id='upload_documents'])[1]"))
 				.sendKeys("C:\\Users\\Admin\\Desktop\\Automationuploadfile\\Aadhaar.png");
@@ -5694,7 +5720,7 @@ public class Masterdata {
 		Thread.sleep(2000);
 
 		// PAN
-		driver.findElement(By.xpath("(//p[text()='Pan Document'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//p[text()='Pan Document'])[1]"))).click();
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//input[@id='upload_documents'])[1]"))
 				.sendKeys("C:\\Users\\Admin\\Desktop\\Automationuploadfile\\Pancard.jpg");
@@ -5703,7 +5729,7 @@ public class Masterdata {
 		Actions actions11 = new Actions(driver);
 		actions11.clickAndHold(slider11).moveByOffset(0, 50).release().perform(); // move down
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//button[text()='Update'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Update'])[1]"))).click();
 		Thread.sleep(2000);
 		// Upload multiple files at once in one sendKeys call
 		driver.findElement(By.xpath("(//input[@id='files_verify'])[1]"))
@@ -5735,21 +5761,21 @@ public class Masterdata {
 
 	@And("edit the age and save the user of healthcoach")
 	public void edit_the_age_and_save_the_user_of_healthcoach() throws Exception {
-		WebDriverWait edit = new WebDriverWait(driver, Duration.ofSeconds(30));
-		edit.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("(//i[@class='fa fa-pencil'])[1]"))))
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("(//i[@class='fa fa-pencil'])[1]"))))
 				.click();
 		// driver.findElement(By.xpath("(//i[@class='fa fa-pencil'])[1]")).click();
 		Thread.sleep(3000);
 		// age
-		driver.findElement(By.cssSelector("input#age")).clear();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#age"))).clear();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.cssSelector("input#age")).sendKeys("45");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#age"))).sendKeys("45");
 		Thread.sleep(2000);
 		WebDriverWait cont = new WebDriverWait(driver, Duration.ofSeconds(30));
 		cont.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("(//button[text()='Continue'])[1]"))))
 				.click();
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//img[@data-tooltip='More'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@data-tooltip='More'])[1]"))).click();
 		Thread.sleep(1000);
 		try {
 			driver.findElement(By.xpath("(//input[@value='Save'])[1]")).click();
@@ -5762,7 +5788,10 @@ public class Masterdata {
 
 	@Then("click on the healthcoach role")
 	public void click_on_the_healthcoach_role() throws Exception {
-		driver.findElement(By.xpath("(//div[@class='user_detl_dropdown'])[1]/a[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(
+				ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='user_detl_dropdown'])[1]/a[1]")))
+				.click();
 		Thread.sleep(3000);
 	}
 
@@ -6107,7 +6136,8 @@ public class Masterdata {
 		action.moveToElement(driver.findElement(By.xpath("(//div[text()='NanoHealth_OPD'])[1]"))).build().perform();
 		Thread.sleep(3000);
 		// clicking on the charge masters
-		driver.findElement(By.xpath("(//span[text()='Charge Masters'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Charge Masters'])[1]")))
+				.click();
 		Thread.sleep(5000);
 		// creating new op procedure from charge masters
 		Actions action1 = new Actions(driver);
@@ -6363,44 +6393,57 @@ public class Masterdata {
 	@And("edit the minor procedure and save it")
 	public void edit_the_minor_procedure_and_save_it() throws Exception {
 		// edit
-		driver.findElement(By.xpath("(//i[@class='fa fa-pencil'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//i[@class='fa fa-pencil'])[1]"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//label[text()='Price'])[1]/following-sibling::input[1]")).clear();
+		wait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath("(//label[text()='Price'])[1]/following-sibling::input[1]")))
+				.clear();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//label[text()='Price'])[1]/following-sibling::input[1]")).sendKeys("600");
+		wait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath("(//label[text()='Price'])[1]/following-sibling::input[1]")))
+				.sendKeys("600");
 		Thread.sleep(1000);
 		// continue
-		driver.findElement(By.xpath("(//input[@value='Continue'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@value='Continue'])[1]"))).click();
 		Thread.sleep(2000);
 		//// remove
 		// driver.findElement(By.xpath("(//a/i[@class='fa
 		//// fa-times-circle'])[2]")).click();
 		// Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@value='Save'])[2]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@value='Save'])[2]"))).click();
 		Thread.sleep(3000);
 	}
 
 	@And("searching through using service dropdown for minorprocedures1")
 	public void searching_through_using_service_dropdown_for_minorprocedures1() throws Exception {
-		driver.findElement(By.xpath("(//label[text()='Procedure'])[1]/following-sibling::span[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath("(//label[text()='Procedure'])[1]/following-sibling::span[1]")))
+				.click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//li[text()='Cucum op procedure'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//li[text()='Cucum op procedure'])[1]")))
+				.click();
 		Thread.sleep(1000);
 	}
 
 	@Then("clicking on the search button and reseting after for minorprocedures1")
 	public void clicking_on_the_search_button_and_reseting_after_for_minorprocedures1() throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		// search
-		driver.findElement(By.xpath("(//input[@value='Search'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@value='Search'])[1]"))).click();
 		Thread.sleep(2000);
 		// clicking on the minor procedure name
-		driver.findElement(By.xpath("(//div[@id='search-results'])[1]/table/tbody/tr[1]/td[2]/a[1]")).click();
+		wait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath("(//div[@id='search-results'])[1]/table/tbody/tr[1]/td[2]/a[1]")))
+				.click();
 		Thread.sleep(3000);
 		// closing the popup
-		driver.findElement(By.xpath("(//div[@id='newSurgeryMaster-modal'])[1]/div/div[1]/span[1]/i[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("(//div[@id='newSurgeryMaster-modal'])[1]/div/div[1]/span[1]/i[1]"))).click();
 		Thread.sleep(3000);
 		// reset
-		driver.findElement(By.xpath("(//a[text()='Reset'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//a[text()='Reset'])[1]"))).click();
 		Thread.sleep(2000);
 		driver.close();
 	}
@@ -6993,7 +7036,8 @@ public class Masterdata {
 		// search with filters-room type
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[@class='selection'])[2]"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//li[text()='Cucumber room type'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//li[text()='Cucumber room type'])[1]")))
+				.click();
 		Thread.sleep(1000);
 		WebDriverWait search1 = new WebDriverWait(driver, Duration.ofSeconds(30));
 		search1.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("(//input[@value='Search'])[1]"))))
@@ -8049,7 +8093,8 @@ public class Masterdata {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("(//label[text()='Service Master'])[1]/following-sibling::span[1]"))).click();
-		driver.findElement(By.xpath("//li[text()='Dietician Consultation']")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[text()='Dietician Consultation']")))
+				.click();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		// entering the discount
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
@@ -9394,24 +9439,29 @@ public class Masterdata {
 	@And("click on the formbuilder button from the digitaltwin")
 	public void click_on_the_formbuilder_button_from_the_digitaltwin() throws Exception {
 		// clicking on the form builder from the facilitydigitaltwin
-		driver.findElement(By.xpath("(//div[text()='Form Builder'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[text()='Form Builder'])[1]")))
+				.click();
 		Thread.sleep(8000);
 	}
 
 	@Then("deleting the already created form from the UI")
 	public void deleting_the_already_created_form_from_the_UI() throws Exception {
-		driver.findElement(By.xpath("(//input[@id='form_name'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@id='form_name'])[1]"))).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//input[@id='formName'])[1]")).sendKeys("Cucum");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@id='formName'])[1]")))
+				.sendKeys("Cucum");
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//button[text()='Search'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Search'])[1]"))).click();
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//span[@title='Delete Form'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[@title='Delete Form'])[1]")))
+				.click();
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//div[text()='Yes'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[text()='Yes'])[1]"))).click();
 		Thread.sleep(3000);
 		// reset
-		driver.findElement(By.xpath("(//button[text()='Reset'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Reset'])[1]"))).click();
 		Thread.sleep(3000);
 	}
 
@@ -9425,19 +9475,21 @@ public class Masterdata {
 		action.moveToElement(driver.findElement(By.xpath("(//span[@data-tooltip='Create Form'])[1]/img[1]"))).build()
 				.perform();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//span[@data-tooltip='Create Form'])[1]/img[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[@data-tooltip='Create Form'])[1]/img[1]"))).click();
 		Thread.sleep(3000);
 	}
 
 	@Then("select the form type from form type and form name popup")
 	public void select_the_form_type_from_form_type_and_form_name_popup() throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_ENTER);
 		Thread.sleep(1000);
 		// clicking on the reset button
-		driver.findElement(By.xpath("(//div[text()='Reset'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[text()='Reset'])[1]"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//label/span[text()='Form Type'])[1]/following-sibling::div[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//label/span[text()='Form Type'])[1]/following-sibling::div[1]"))).click();
 		Thread.sleep(1000);
 		// Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_ENTER);
@@ -9454,7 +9506,8 @@ public class Masterdata {
 
 	@Then("enter the form name and select the label configuration for that form")
 	public void enter_the_form_name_and_select_the_label_configuration_for_that_form() throws Exception {
-		driver.findElement(By.xpath("(//label/span[text()='Form Name'])[1]/following-sibling::input[1]"))
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//label/span[text()='Form Name'])[1]/following-sibling::input[1]")))
 				.sendKeys("Cucum formbuilder" + Keys.TAB);
 		Thread.sleep(1000);
 		Robot robot = new Robot();
@@ -9476,14 +9529,15 @@ public class Masterdata {
 	@Then("add responsible role and add header footer for the form")
 	public void add_responsible_role_and_add_header_footer_for_the_form() throws Exception {
 		// clicking on the X remove all resp role name
-		driver.findElement(By.xpath("(//div[@aria-label='Remove All'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@aria-label='Remove All'])[1]"))).click();
 		Thread.sleep(1000);
 		// clicking on the dropdown button to add resp role name
 		// driver.findElement(By.xpath("/html/body/div/div[1]/div/div[2]/div[2]/div[1]/div[2]/div")).click();
-		driver.findElement(By.xpath("(//span[text()='Responsible Role'])[1]/following-sibling::div[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Responsible Role'])[1]/following-sibling::div[1]"))).click();
 		Thread.sleep(1000);
 		// selecting the resp role name from dropdown
-		driver.findElement(By.xpath("(//div[text()='Clinic_Manager'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[text()='Clinic_Manager'])[1]"))).click();
 		Thread.sleep(1000);
 		// is_active
 		for (int i = 0; i <= 1; i++) {
@@ -9492,7 +9546,7 @@ public class Masterdata {
 		}
 
 		// clicking on the three dot s
-		driver.findElement(By.xpath("(//img[@title='More Details'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@title='More Details'])[1]"))).click();
 		Thread.sleep(3000);
 
 		WebElement male = driver.findElement(By.xpath("(//span[text()='Male'])[1]"));
@@ -9521,13 +9575,13 @@ public class Masterdata {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		driver.findElement(By.xpath("(//input[@name='footer_img_height'])[1]")).sendKeys("20");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@name='footer_img_height'])[1]"))).sendKeys("20");
 		Thread.sleep(1000);
 		Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_PAGE_DOWN);
 		Thread.sleep(1000);
 		// clicking on the add parameter button
-		driver.findElement(By.xpath("(//button[@title='Add New Parameter'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[@title='Add New Parameter'])[1]"))).click();
 		Thread.sleep(2000);
 		WebElement select = driver.findElement(By.xpath("(//select[@class='parameter-select react_css'])[1]"));
 		Select parameter = new Select(select);
@@ -9542,7 +9596,7 @@ public class Masterdata {
 		driver.findElement(By.xpath("(//img[@alt='Delete'])[1]")).click();
 		Thread.sleep(1000);
 		// clicking on the add parameter button
-		driver.findElement(By.xpath("(//button[@title='Add New Parameter'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[@title='Add New Parameter'])[1]"))).click();
 		Thread.sleep(2000);
 		WebElement select1 = driver.findElement(By.xpath("(//select[@class='parameter-select react_css'])[1]"));
 		Select parameter1 = new Select(select1);
@@ -9551,27 +9605,28 @@ public class Masterdata {
 		WebElement no1 = driver.findElement(By.xpath("(//label/input[@value='No'])[1]"));
 		no1.click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//button[text()='Save'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Save'])[1]"))).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//button[@title='Update'])[1]/img[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[@title='Update'])[1]/img[1]"))).click();
 		Thread.sleep(2000);
 		WebElement yes1 = driver.findElement(By.xpath("(//label/input[@value='Yes'])[1]"));
 		yes1.click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//button[text()='Save'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[text()='Save'])[1]"))).click();
 		Thread.sleep(2000);
 		// clicking on the save button from form details popup
-		driver.findElement(By.xpath("(//div[text()='Save'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[text()='Save'])[1]"))).click();
 		Thread.sleep(2000);
 	}
 
 	@And("click on the string question type from left side question types")
 	public void click_on_the_string_question_type_from_left_side_question_types() throws Exception {
 		// mosue hovering on to the question name
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		Actions action = new Actions(driver);
 		action.moveToElement(driver.findElement(By.xpath("(//img[@alt='String'])[1]"))).build().perform();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//img[@alt='String'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@alt='String'])[1]"))).click();
 		Thread.sleep(1000);
 	}
 
@@ -9581,21 +9636,21 @@ public class Masterdata {
 
 	@Then("select the question and give label configuration for that question")
 	public void select_the_question_and_give_label_configuration_for_that_question() throws InterruptedException {
-
-		driver.findElement(By.xpath("(//div[text()='Notes'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[text()='Notes'])[1]"))).click();
 		Thread.sleep(1000);
 		// removing filter
-		driver.findElement(By.xpath("(//span[@title='Clear filter'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[@title='Clear filter'])[1]"))).click();
 		Thread.sleep(1000);
 		// adding another question
 		Actions action = new Actions(driver);
 		action.moveToElement(driver.findElement(By.xpath("(//img[@alt='Integer'])[1]"))).build().perform();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//img[@alt='Integer'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@alt='Integer'])[1]"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@class='react_css'])[1]")).sendKeys("Height");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@class='react_css'])[1]"))).sendKeys("Height");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//div[@title='Height'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@title='Height'])[1]"))).click();
 		Thread.sleep(1000);
 
 	}
@@ -9607,6 +9662,7 @@ public class Masterdata {
 
 	@And("add another ques and made it dependent parent and child question")
 	public void add_another_ques_and_made_it_dependent_parent_and_child_question() throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		// driver.findElement(By.xpath("(//img[@alt='String'])[1]")).click();
 		// Thread.sleep(2000);
 		// driver.findElement(By.xpath(
@@ -9615,19 +9671,19 @@ public class Masterdata {
 		// .sendKeys("Other" + Keys.ENTER);
 		// Thread.sleep(2000);
 		// removing filter
-		driver.findElement(By.xpath("(//span[@title='Clear filter'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[@title='Clear filter'])[1]"))).click();
 		Thread.sleep(1000);
 		// clicking on the questions
-		driver.findElement(By.xpath("(//div[text()='Questions'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[text()='Questions'])[1]"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@class='react_css'])[1]")).sendKeys("Other");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@class='react_css'])[1]"))).sendKeys("Other");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//span[text()='Other'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Other'])[1]"))).click();
 		Thread.sleep(1000);
 		// rename question name
-		driver.findElement(By.xpath("(//div[@id='bfocus'])[3]")).clear();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@id='bfocus'])[3]"))).clear();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.findElement(By.xpath("(//div[@id='bfocus'])s[3]")).sendKeys("Cucum dependentquestion");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@id='bfocus'])s[3]"))).sendKeys("Cucum dependentquestion");
 		Thread.sleep(1000);
 		// //making this question as dependentque through drag n drop
 		// Actions drag0= new Actions(driver);
@@ -9652,7 +9708,8 @@ public class Masterdata {
 	@Then("click on the integer question type from left side question types")
 	public void click_on_the_integer_question_type_from_left_side_question_types() throws Exception {
 		// click on the question type
-		driver.findElement(By.xpath("(//div[text()='Question Types'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[text()='Question Types'])[1]"))).click();
 		Thread.sleep(2000);
 	}
 
@@ -9668,13 +9725,14 @@ public class Masterdata {
 
 	@Then("search the question type as radio and click on it")
 	public void search_the_question_type_as_radio_and_click_on_it() throws Exception {
-		driver.findElement(By.xpath("(//div[@class='searchBox'])[1]/input")).sendKeys("Radio");
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='searchBox'])[1]/input"))).sendKeys("Radio");
 		Thread.sleep(1000);
 		// mosue hovering on to the question name
 		Actions action = new Actions(driver);
 		action.moveToElement(driver.findElement(By.xpath("(//img[@alt='Radio'])[1]"))).build().perform();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//img[@alt='Radio'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@alt='Radio'])[1]"))).click();
 		Thread.sleep(1000);
 	}
 
@@ -9683,23 +9741,24 @@ public class Masterdata {
 		// driver.findElement(By.xpath("(//label/span[text()='Existing
 		// Question'])[1]/following-sibling::div[1]")).click();
 		// Thread.sleep(1000);
-		driver.findElement(By.xpath("(//div[text()='Diabetes'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[text()='Diabetes'])[1]"))).click();
 		Thread.sleep(1000);
 		Actions action = new Actions(driver);
 		action.moveToElement(driver.findElement(By.xpath("(//div[@class='que-input-area'])[5]"))).build().perform();
 		Thread.sleep(1000);
 		// clicking on the three dots and changing the options
-		driver.findElement(By.xpath("(//img[@title='More Details'])[2]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@title='More Details'])[2]"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//textarea[@name='options'])[1]")).clear();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//textarea[@name='options'])[1]"))).clear();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//textarea[@name='options'])[1]")).sendKeys("Y,N");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//textarea[@name='options'])[1]"))).sendKeys("Y,N");
 		Thread.sleep(1000);
 		// save
-		driver.findElement(By.xpath("(//div[text()='Save'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[text()='Save'])[1]"))).click();
 		Thread.sleep(2000);
 		// clear the filters
-		driver.findElement(By.xpath("(//span[@title='Clear filter'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[@title='Clear filter'])[1]"))).click();
 		Thread.sleep(2000);
 	}
 
@@ -9710,22 +9769,24 @@ public class Masterdata {
 
 	@Then("search the question type as checkbox and click on it")
 	public void search_the_question_type_as_checkbox_and_click_on_it() throws Exception {
-		driver.findElement(By.xpath("(//div[@class='searchBox'])[1]/input")).clear();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='searchBox'])[1]/input"))).clear();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//div[@class='searchBox'])[1]/input")).sendKeys("Checkbox");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='searchBox'])[1]/input"))).sendKeys("Checkbox");
 		Thread.sleep(2000);
 		// mosue hovering on to the question name
 		Actions action = new Actions(driver);
 		action.moveToElement(driver.findElement(By.xpath("(//img[@alt='Checkbox'])[1]"))).build().perform();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//img[@alt='Checkbox'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@alt='Checkbox'])[1]"))).click();
 		Thread.sleep(1000);
 	}
 
 	@And("select the question for checkbox and give options and label configuration for that question")
 	public void select_the_question_for_checkbox_and_give_options_and_label_configuration_for_that_question()
 			throws Exception {
-		driver.findElement(By.xpath("(//div[contains(text(),'Checkbox1')])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(text(),'Checkbox1')])[1]"))).click();
 		Thread.sleep(1000);
 	}
 
@@ -9737,9 +9798,10 @@ public class Masterdata {
 	@And("remove the last question from the creating form")
 	public void remove_the_last_question_from_the_creating_form() throws Exception {
 		Actions lastque = new Actions(driver);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		lastque.moveToElement(driver.findElement(By.xpath("(//div[@class='que-input-area'])[6]"))).build().perform();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//img[@alt='Delete'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@alt='Delete'])[1]"))).click();
 		Thread.sleep(2000);
 		// yes
 		driver.findElement(By.xpath("(//div[text()='Yes'])[1]")).click();
@@ -9759,10 +9821,11 @@ public class Masterdata {
 
 	@And("click on save button to create the new form")
 	public void click_on_save_button_to_create_the_new_form() throws Exception {
-		driver.findElement(By.xpath("(//div[text()='Save'])[1]")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[text()='Save'])[1]"))).click();
 		Thread.sleep(5000);
 		// clicking on the viewbutton
-		driver.findElement(By.xpath("(//span[@title='View'])[1]/img[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[@title='View'])[1]/img[1]"))).click();
 		Thread.sleep(2000);
 		// with header and footer
 		String parentwind1 = driver.getWindowHandle();
@@ -9796,10 +9859,11 @@ public class Masterdata {
 		// Thread.sleep(2000);
 		// driver.findElement(By.xpath("(//button[text()='Search'])[1]")).click();
 		// Thread.sleep(3000);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		// edit the form
-		driver.findElement(By.xpath("(//span[@title='Edit'])[1]/img[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[@title='Edit'])[1]/img[1]"))).click();
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//img[@title='Form Preview'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@title='Form Preview'])[1]"))).click();
 		Thread.sleep(2000);
 		String parentwind1 = driver.getWindowHandle();
 		// Get all window handles
@@ -9822,26 +9886,26 @@ public class Masterdata {
 		// Switch back to the original parent window
 		driver.switchTo().window(parentwind1);
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//div[@class='searchBox'])[1]/input")).sendKeys("Date");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='searchBox'])[1]/input"))).sendKeys("Date");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//img[@alt='Date'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@alt='Date'])[1]"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//div[contains(text(),'Date')])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(text(),'Date')])[1]"))).click();
 		Thread.sleep(1000);
 
 		Actions action1 = new Actions(driver);
 		action1.moveToElement(driver.findElement(By.xpath("(//div[@class='que-input-area'])[6]"))).build().perform();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//img[@title='More Details'])[2]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@title='More Details'])[2]"))).click();
 		Thread.sleep(1000);
 		// time only
-		driver.findElement(By.xpath("(//label[text()='Time Only'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//label[text()='Time Only'])[1]"))).click();
 		Thread.sleep(1000);
 		WebElement req = driver.findElement(By.xpath("(//label/span[text()='Required'])[1]"));
 		req.click();
 		Thread.sleep(1000);
 		// changing the question label
-		driver.findElement(By.xpath("(//input[@name='questn_desc'])[1]")).sendKeys(Keys.TAB);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@name='questn_desc'])[1]"))).sendKeys(Keys.TAB);
 		Thread.sleep(1000);
 		Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_DOWN);
@@ -9853,29 +9917,29 @@ public class Masterdata {
 		Thread.sleep(1000);
 
 		// clicking on the save btn from more details popup
-		driver.findElement(By.xpath("(//div[text()='Save'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[text()='Save'])[1]"))).click();
 		Thread.sleep(2000);
 		// clear filters
-		driver.findElement(By.xpath("(//span[@title='Clear filter'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[@title='Clear filter'])[1]"))).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("(//div[@class='searchBox'])[1]/input")).clear();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='searchBox'])[1]/input"))).clear();
 		Thread.sleep(1000);
 		// adding another question
-		driver.findElement(By.xpath("(//div[@class='searchBox'])[1]/input")).sendKeys("Paragraph");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='searchBox'])[1]/input"))).sendKeys("Paragraph");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//img[@alt='Paragraph'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@alt='Paragraph'])[1]"))).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//div[text()='Daily 4CW Text'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[text()='Daily 4CW Text'])[1]"))).click();
 		Thread.sleep(1000);
 		action.moveToElement(driver.findElement(By.xpath("(//div[@class='que-input-area'])[6]"))).build().perform();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//img[@title='More Details'])[2]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@title='More Details'])[2]"))).click();
 		Thread.sleep(1000);
 		WebElement req1 = driver.findElement(By.xpath("(//label/span[text()='Required'])[1]"));
 		req1.click();
 		Thread.sleep(1000);
 		// changing the question label
-		driver.findElement(By.xpath("(//input[@name='questn_desc'])[1]")).sendKeys(Keys.TAB);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@name='questn_desc'])[1]"))).sendKeys(Keys.TAB);
 		Thread.sleep(1000);
 		// Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_DOWN);
@@ -9910,12 +9974,12 @@ public class Masterdata {
 		// Thread.sleep(2000);
 
 		// renaming the form
-		driver.findElement(By.xpath("(//input[@id='bfocus1'])[1]")).clear();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@id='bfocus1'])[1]"))).clear();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@id='bfocus1'])[1]")).sendKeys("Cucum formbuilder");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@id='bfocus1'])[1]"))).sendKeys("Cucum formbuilder");
 		Thread.sleep(1000);
 		// clicking on the save btn from form
-		driver.findElement(By.xpath("(//div[text()='Save'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[text()='Save'])[1]"))).click();
 		Thread.sleep(8000);
 		driver.close();
 	}
