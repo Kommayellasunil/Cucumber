@@ -484,18 +484,18 @@ Feature: Masterdata
 
   #@urlshortener
   #Scenario: urlshortener from the masterdata
-    #And click on the url shortener button from the masterdata
-    #Then enter the url and click on the generate url button
-    #When shortener link is generated then it will show the shortener url in the below
-    #Then copy the url using copy button
-    #And paste it in the new tab and click enter
-    #When it will open the link of the url shortener and closing this tab
-    #Then navigated back to the previous page and just click on the close button
-    #And clicking on the reset button from the url shortener page
-    #Then navigate to the masterdata dashboard from url shortener
+    And click on the url shortener button from the masterdata
+    Then enter the url and click on the generate url button
+    When shortener link is generated then it will show the shortener url in the below
+    Then copy the url using copy button
+    And paste it in the new tab and click enter
+    When it will open the link of the url shortener and closing this tab
+    Then navigated back to the previous page and just click on the close button
+    And clicking on the reset button from the url shortener page
+    Then navigate to the masterdata dashboard from url shortener
 
 
   #@departmentmaster
-  	#Scenario: creating new department master
-    #And click on department master from digitaltwin dashboard
-    #Then add new department and save the department
+  #Scenario: creating new department master
+    And click on department master from digitaltwin dashboard
+    Then add new department and save the department

@@ -1226,8 +1226,8 @@ public class Patientprofileicons {
 	public void mouse_hover_to_upload_reports_and_click_on_the_upload_doctor_visit() throws Exception {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		Actions action = new Actions(driver);
-		action.moveToElement(wait
-				.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='upld_dropdown'])[2]"))))
+		action.moveToElement(wait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath("(//a[@data-tooltip='Upload Medical Documents'])[1]/img[1]"))))
 				.build().perform();
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[@data-tooltip='Doctor Visit'])[1]"))).click();
 	}
@@ -1293,8 +1293,8 @@ public class Patientprofileicons {
 	public void mouse_hover_to_upload_reports_and_click_on_the_upload_dietician_visit() throws Exception {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		Actions action2 = new Actions(driver);
-		action2.moveToElement(wait
-				.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='upld_dropdown'])[2]"))))
+		action2.moveToElement(wait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath("(//a[@data-tooltip='Upload Medical Documents'])[1]/img[1]"))))
 				.build().perform();
 		action2.moveToElement(wait.until(ExpectedConditions
 				.visibilityOfElementLocated(By.xpath("(//a[@data-tooltip='Upload Dietitian Visit'])[1]")))).click()
@@ -1377,8 +1377,8 @@ public class Patientprofileicons {
 	public void mouse_hover_to_upload_reports_and_click_on_the_upload_discharge_summary() throws Exception {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		Actions action3 = new Actions(driver);
-		action3.moveToElement(wait
-				.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='upld_dropdown'])[2]"))))
+		action3.moveToElement(wait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath("(//a[@data-tooltip='Upload Medical Documents'])[1]/img[1]"))))
 				.build().perform();
 		action3.moveToElement(wait.until(
 				ExpectedConditions.elementToBeClickable(By.xpath("//a[@data-tooltip='Upload Discharge Summary']"))))

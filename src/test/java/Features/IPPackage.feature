@@ -51,5 +51,3 @@ Feature: registering a patient and booking ip package
     And click on shareinvoice11 button
     Then clears existing mail and phone for ippackage
     And enter mail and click on submit button for shareinvoice11
-    Then click on the patient name and open patient profile
-    And create a new ip package for the ip patient

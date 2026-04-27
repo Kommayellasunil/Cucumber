@@ -7,13 +7,9 @@ import io.cucumber.junit.CucumberOptions;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = { "src/test/java/Features/AddingPatients.feature",
-		"src/test/java/Features/BookingServices.feature", "src/test/java/Features/LabTechnician.feature",
-		"src/test/java/Features/Bookinglabhome.feature", "src/test/java/Features/IPPackage.feature",
-		"src/test/java/Features/Patientprofileicons.feature",
-		"src/test/java/Features/Masterdata.feature" }, tags = "", publish = true, glue = { "ClinicManager", "Doctor",
-				"Phsarmacy", "Superadmin", "Homecareattendant",
-				"RecommendationManager" }, plugin = { "html:target/Cucumberreport.html" })
+@CucumberOptions(features = { "src/test/java/Features/AddingPatients.feature" }, tags = "", publish = true, glue = {
+		"ClinicManager", "Doctor", "Pharmacy", "Superadmin", "Homecareattendant",
+		"RecommendationManager" }, plugin = { "html:target/Cucumberreport.html" })
 
 public class Myrunner extends AbstractTestNGCucumberTests {
 }

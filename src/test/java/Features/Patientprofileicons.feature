@@ -103,9 +103,9 @@ Feature: Patient profile icons
     Then deleting the newly added insurance
     And closing the insurance popup
     #corporate
-    #And click on the corporate button to create a new corporate
-    #Then save the corporate with employee details
-    #And edit and save the corporate details
+    And click on the corporate button to create a new corporate
+    Then save the corporate with employee details
+    And edit and save the corporate details
     #transfer
     #Then click on the transfer icon and transfer the patient to another hospital
     #reviews

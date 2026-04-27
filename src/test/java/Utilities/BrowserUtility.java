@@ -16,8 +16,9 @@ public class BrowserUtility {
 	public static WebDriver launchBrowser(String url) {
 		String browser = "chrome"; // Default
 		if (org.testng.Reporter.getCurrentTestResult() != null) {
-			String contextBrowser = org.testng.Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("browser");
-			if(contextBrowser != null) {
+			String contextBrowser = org.testng.Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("browser");
+			if (contextBrowser != null) {
 				browser = contextBrowser.toLowerCase();
 			}
 		}
@@ -28,15 +29,15 @@ public class BrowserUtility {
 			WebDriverManager.firefoxdriver().setup();
 			FirefoxOptions fo = new FirefoxOptions();
 			fo.setPageLoadStrategy(PageLoadStrategy.EAGER);
-			
+
 			// Firefox preferences for permissions
 			fo.addPreference("permissions.default.camera", 1);
 			fo.addPreference("permissions.default.microphone", 1);
 			fo.addPreference("permissions.default.desktop-notification", 1);
 			fo.addPreference("permissions.default.geo", 1);
-			
+
 			driver = new FirefoxDriver(fo);
-			
+
 		} else {
 			// Chrome by default
 			WebDriverManager.chromedriver().setup();
@@ -51,14 +52,14 @@ public class BrowserUtility {
 			prefs.put("profile.default_content_setting_values.notifications", 1); // Optional
 			prefs.put("profile.default_content_setting_values.geolocation", 1); // Optional
 			co.setExperimentalOption("prefs", prefs);
-			
-			co.addArguments("--use-fake-device-for-media-stream"); 
+
+			co.addArguments("--use-fake-device-for-media-stream");
 			co.addArguments("--disable-notifications");
 			co.addArguments("--disable-extensions");
 			co.addArguments("--disable-infobars");
 			co.addArguments("--disable-dev-shm-usage");
 			co.addArguments("--no-sandbox");
-			
+
 			driver = new ChromeDriver(co);
 		}
 
